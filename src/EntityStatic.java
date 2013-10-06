@@ -1,5 +1,7 @@
+// Daniel Martin Oct/6/2013
+// Purpose: Provide extensible class for entities that are not animated but still drawn in the world.
+
 import org.newdawn.slick.Image;
-import org.newdawn.slick.opengl.Texture;
 
 
 public class EntityStatic extends EntityVisable

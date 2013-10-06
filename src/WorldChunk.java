@@ -1,23 +1,25 @@
-
-//Contains an X by Y matrix of world blocks.
+// Daniel Martin Oct/6/2013
+// Purpose: Contains an X by Y matrix of world blocks.
 // Currently for testing purposes only. 
 
 //NOTE: This only works with an image that has a pixel size of 50x50.
-// ALL *BLOCK* Assets will be a power of TEN!!!
+// ALL *BLOCK* Assets will be a power of, or equally divisible by TEN!!!
 public class WorldChunk
 {
 	//Size of a single block. Total Chunk width computed by NUM_COL*BLOCKSIZE_X 
 	static float BLOCKSIZE_X = 50;
 	static float BLOCKSIZE_Y = 50;
 	
-	static int NUM_ROW = 5;
-	static int NUM_COL = 5;
+	static int NUM_ROW = 10;
+	static int NUM_COL = 10;
 	
 	static float CHUNK_WIDTH  = NUM_COL * BLOCKSIZE_X;
 	static float CHUNK_HEIGHT = NUM_ROW * BLOCKSIZE_Y;
 	
 	float Begin_X;
 	float Begin_Y;
+	
+	
 	
 	EntityStatic Blocks[][] = new EntityStatic[NUM_ROW][NUM_COL];
 	
@@ -28,12 +30,26 @@ public class WorldChunk
 		Begin_X = CHUNK_WIDTH*(NumPrecedingChunks);
 		Begin_Y = 0;//CHUNK_HEIGHT;//CHUNK_HEIGHT*(NumPrecedingChunks+1);
 		
-		System.out.println("Begin_X: "+Begin_X+" | ChunkWidth: "+CHUNK_WIDTH);
-		System.out.println("Begin_Y: "+Begin_Y+" | ChunkHeight: "+CHUNK_HEIGHT);
+		//System.out.println("Begin_X: "+Begin_X+" | ChunkWidth: "+CHUNK_WIDTH);
+		//System.out.println("Begin_Y: "+Begin_Y+" | ChunkHeight: "+CHUNK_HEIGHT);
 	}
 	
+	// Y_Offset by chunk size. Used to put chunks under chunks.
+	WorldChunk(int NumPrecedingChunks,float Y_Offset)
+	{
+		// Offset new slices so we don't have overlapping chunks/blocks.
+		Begin_X = CHUNK_WIDTH*(NumPrecedingChunks);
+		Begin_Y = Y_Offset*CHUNK_HEIGHT;
+		
+		//System.out.println("Begin_X: "+Begin_X+" | ChunkWidth: "+CHUNK_WIDTH);
+		//System.out.println("Begin_Y: "+Begin_Y+" | ChunkHeight: "+CHUNK_HEIGHT);
+	}
+	
+	
+	
+	
 	// Populate chunk with a matrix of EntityStatic(s).
-	void PopulateChunk()
+	void Populate()
 	{
 
 		for (int Row = 0; Row < NUM_ROW; Row++)

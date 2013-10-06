@@ -1,3 +1,5 @@
+// Daniel Martin Oct/6/2013
+// Purpose: To create a single class for handling the game framework
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -6,16 +8,20 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 
 public class Engine extends BasicGame
 {
+	// These will be removed. Camera/world class are todo.
+	float XTrans = 0;
+	float YTrans = 0;
+	WorldSlice Slices[] = new WorldSlice[10];
+		
 	public static final Resource m_Resource = new Resource();
 	
-	//EntityStatic SEnt;
-	WorldChunk Chunk[] = new WorldChunk[5];
-	
+
 	public Engine(String gamename)
 	{
 		super(gamename);
@@ -25,12 +31,10 @@ public class Engine extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		//SEnt = new EntityStatic();
-		//SEnt.SetPos(2,2,0.05f);
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < Slices.length; i++)
 		{
-			Chunk[i] = new WorldChunk(i);
-			Chunk[i].PopulateChunk();
+			Slices[i] = new WorldSlice(i);
+			Slices[i].Populate();
 		}
 	}
 
@@ -42,9 +46,31 @@ public class Engine extends BasicGame
 	{
 		//g.drawString("Test!", 100, 100);
 		//SEnt.draw();
-		for (int i = 0; i < 5; i++)
+		
+		// This is VERY temporary. It would be crazy to handle camera movement and drawing like this...
+		if (gc.getInput().isKeyDown(Input.KEY_D))
 		{
-			Chunk[i].Draw();
+			XTrans -= 2;
+		}
+		else if (gc.getInput().isKeyDown(Input.KEY_A))
+		{
+			XTrans += 2;
+		}
+		if (gc.getInput().isKeyDown(Input.KEY_S))
+		{
+			YTrans -= 2;
+		}
+		else if (gc.getInput().isKeyDown(Input.KEY_W))
+		{
+			YTrans += 2;
+		}
+		
+		g.translate(XTrans,YTrans);
+
+		
+		for (int i = 0; i < Slices.length; i++)
+		{
+			Slices[i].Draw();
 		}
 		g.setBackground(new Color(255,255,255));
 	}
@@ -56,6 +82,7 @@ public class Engine extends BasicGame
 			AppGameContainer Game = new AppGameContainer(new Engine("Placeholder"));
 			Game.setDisplayMode(1024, 512, false);
 			Game.start();
+
 		}
 		catch (SlickException ex)
 		{

@@ -1,3 +1,5 @@
+// Daniel Martin Oct/6/2013
+// Purpose: Basic extensible class for entities requiring position in the world.
 
 public class EntityVisable 
 {

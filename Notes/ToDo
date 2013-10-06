@@ -1,0 +1,44 @@
+Purpose: To list requirements for the game framework and game in general.
+
+
+
+ENGINE:
+* Limit the game framerate to a maximum of 60 fps. (Unnecessary frame rendering will slow game logic.
+* Create an event system to handle world events, player events, etc.
+* Create a set of extensible entity classes to handle the bases for block, player, weapon, and enemy entities.
+* Create player class capable of accepting keyboard input, containing inventory items, and using inventory items.
+* Create a GUI interface for the main menu, game options, player inventory, hud, and other features.
+* Create procedurally generated world algorithm similar to terraria. (Hills, Caves, Dungeons, enemy encounters, biome-esq)
+
+* Create a way for the world to be continuous in one direction only; no limits.
+	- The player can only move to the right, up, and down. 
+	- The player can move to the left, so long as he/she does not go past the camera view.
+	- WorldChunks no longer visible behind the player are destroyed.
+	- When the player's position reaches the maximum number supported by the float data type, move them and the world back to the beginning.
+	- The above should be somewhat seamless if done properly. 
+	- World savegame data will consist of roughly 10-15 WorldChunks, rather than an entire world.
+	
+	- There will be a hub consisting of 10 chunks that serves as the player's personal home. 
+		- Players can sell items, shop, and store things. The player may teleport home once every minute (if not recently damaged). 
+		- ...Then telport back to their previous location in the game world.
+	
+PHYSICS:
+* Handle basic collisions of entity types based on an enumeration type. (World, Player, Projectile, ALL, NONE) (Allow to mix and match flags)
+* Localized gravity pull scale for each object. 
+* Ability to change pull direction of gravity. (Up, Down, Left, Right)
+
+RENDERING:
+* Create an algorithm to only draw WorldChunks within the camera's frustum. (Efficient rendering)
+* Create particle system to spew debris when objects are hit/hurt/explode ... do special effects. (Apply physical interactions?)
+* Allow for destructible terrain with particle effects.
+
+RESOURCE:
+* Create an efficient way to load textures/sounds to avoid loading the same texture/sound into memory multiple times
+* Create a proper save file format, and an efficient way to seek, load, edit, and save world/player/inventory data.
+* Create sound & texture assets.
+* Allow game settings to be loaded from a flat file, and set in a main menu. (Resolution, Volume, FPS, controls, etc) 
+
+
+
+
+
