@@ -17,7 +17,8 @@ public class Engine extends BasicGame
 	// These will be removed. Camera/world class are todo.
 	float XTrans = 0;
 	float YTrans = 0;
-	WorldSlice Slices[] = new WorldSlice[10];
+	
+	World WorldInstance;
 		
 	public static final Resource m_Resource = new Resource();
 	
@@ -31,11 +32,9 @@ public class Engine extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		for (int i = 0; i < Slices.length; i++)
-		{
-			Slices[i] = new WorldSlice(i);
-			Slices[i].Populate();
-		}
+		WorldInstance = new World();
+		//WorldInstance.PushBackSlices();
+		//WorldInstance.CreateNewSlices();
 	}
 
 	@Override
@@ -45,8 +44,7 @@ public class Engine extends BasicGame
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		//g.drawString("Test!", 100, 100);
-		//SEnt.draw();
-		
+
 		// This is VERY temporary. It would be crazy to handle camera movement and drawing like this...
 		if (gc.getInput().isKeyDown(Input.KEY_D))
 		{
@@ -68,11 +66,10 @@ public class Engine extends BasicGame
 		g.translate(XTrans,YTrans);
 
 		
-		for (int i = 0; i < Slices.length; i++)
-		{
-			Slices[i].Draw();
-		}
+		WorldInstance.Draw();
 		g.setBackground(new Color(255,255,255));
+		
+		
 	}
 
 	public static void main(String[] args)
@@ -80,7 +77,7 @@ public class Engine extends BasicGame
 		try
 		{
 			AppGameContainer Game = new AppGameContainer(new Engine("Placeholder"));
-			Game.setDisplayMode(1024, 512, false);
+			Game.setDisplayMode(1280, 720, false);
 			Game.start();
 
 		}

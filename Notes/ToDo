@@ -1,6 +1,8 @@
 Purpose: To list requirements for the game framework and game in general.
 
-
+Immediate:
+	Set slices to work vertically 
+	- Fix the LIFO stack array in World Class
 
 ENGINE:
 * Limit the game framerate to a maximum of 60 fps. (Unnecessary frame rendering will slow game logic.
