@@ -35,12 +35,6 @@ public class EntityStatic extends EntityVisable
 	void SetAlpha(float Alpha)
 	{
 		m_Image.setAlpha(m_Alpha);
-
-		
-
-		//Texture T;
-		//T.
-		//m_Image.setTexture(texture);
 	}
 	
 	void SetTexture(String Path)

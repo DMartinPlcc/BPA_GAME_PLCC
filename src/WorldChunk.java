@@ -6,55 +6,60 @@
 // ALL *BLOCK* Assets will be a power of, or equally divisible by TEN!!!
 public class WorldChunk
 {
-	//Size of a single block. 
-	//Total Chunk width computed by NUM_COL*BLOCKSIZE_X 
-	static float BLOCKSIZE_X = 20;
-	static float BLOCKSIZE_Y = 20;
+	static final int Rows    = 10;
+	static final int Columns = 10;
 	
-	static int NUM_ROW = 10;
-	static int NUM_COL = 10;
+	// The width/depth of the blocks/chunks that make up the class sections.
+	// This would be Block width/height for the Class WorldChunk, and would be WorldChunk width/height for Worldslice.
+	static final float ChildWidth  = 20;
+	static final float ChildHeight = 20;
 	
-	static float CHUNK_WIDTH  = NUM_COL * BLOCKSIZE_X;
-	static float CHUNK_HEIGHT = NUM_ROW * BLOCKSIZE_Y;
+	// Width/Height of a WorldChunk as a whole.
+	static final float Width  = Columns * ChildWidth;
+	static final float Height = Rows    * ChildHeight;
 	
-	float Begin_X;
-	float Begin_Y;
+	EntityBlock Blocks[][] = new EntityBlock[Rows][Columns];
 	
 	
-	EntityStatic Blocks[][] = new EntityStatic[NUM_ROW][NUM_COL];
+	// Number of chunks/slices/etc preceding from the left/right and up/down.
+	int PrecedingX;
+	int PrecedingY;
+	
+	//int ProceedingChildrenX; (There isn't a real use for this right now here.)
+	//int ProceedingChildrenY; (There are so many blocks, we could overflow an integer's size depending on how the world is implemented.)
+	
+	//Start Position;
+	float X;
+	float Y;
 	
 	// Because all chunks are the same size, we compute the offset by multiplying the
-	// total size of a single chunk's width by the total number of chunks. Giving a proper offset.
-	WorldChunk(int NumPrecedingChunks)
-	{		
-		Begin_X = CHUNK_WIDTH*(NumPrecedingChunks);
-		Begin_Y = 0;
+	// total size of a single chunk's width by the total number of preceding chunks. Giving a proper offset.
+	// This implies that the blocks are contiguous, however.
+	WorldChunk(int PrecedingChunksX, int PrecedingChunksY)
+	{			
+		
+		// Number of slices before this one, used for positioning the whole.
+		PrecedingX = PrecedingChunksX;
+		PrecedingY = PrecedingChunksY;
+		
+		// The starting position of this collection of objects.
+		X = Width  * PrecedingX;
+		Y = Height * PrecedingY;
 		Populate();
 	}
-	
-	// Y_Offset by chunk size. Used to put chunks under chunks.
-	WorldChunk(int NumPrecedingChunks,float Y_Offset)
-	{
-		// Offset new slices so we don't have overlapping chunks/blocks.
-		Begin_X = CHUNK_WIDTH*(NumPrecedingChunks);
-		Begin_Y = Y_Offset*CHUNK_HEIGHT;
-		Populate();
-	}
-	
-	
 	
 	
 	// Populate chunk with a matrix of EntityStatic(s).
 	private void Populate()
 	{
 
-		for (int Row = 0; Row < NUM_ROW; Row++)
+		for (int Row = 0; Row < Rows; Row++)
 		{
-			for (int Col = 0; Col < NUM_COL; Col++)
+			for (int Col = 0; Col < Columns; Col++)
 			{
-				Blocks[Row][Col] = new EntityStatic();
-				Blocks[Row][Col].m_X = ( Col * BLOCKSIZE_X) + Begin_X;
-				Blocks[Row][Col].m_Y = ( Row * BLOCKSIZE_Y) + Begin_Y;
+				Blocks[Row][Col] = new EntityBlock();
+				Blocks[Row][Col].m_X = ( Col * ChildWidth ) + X;
+				Blocks[Row][Col].m_Y = ( Row * ChildHeight) + Y;
 				Blocks[Row][Col].SetScale(0.5f);
 			}
 		}	
@@ -62,9 +67,9 @@ public class WorldChunk
 	
 	void Draw()
 	{
-		for (int Row = 0; Row < NUM_ROW; Row++)
+		for (int Row = 0; Row < Rows; Row++)
 		{
-			for (int Col = 0; Col < NUM_COL; Col++)
+			for (int Col = 0; Col < Columns; Col++)
 			{
 				Blocks[Row][Col].draw();
 			}

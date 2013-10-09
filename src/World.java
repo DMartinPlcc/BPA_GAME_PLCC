@@ -2,7 +2,7 @@
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
 public class World 
 {
-	static int SLICE_COUNT = 10;
+	static int SLICE_COUNT = 1;
 	
 	// When the player reaches this slice, create additional slices.
 	static int WorldBuffer = SLICE_COUNT/2;
@@ -17,8 +17,7 @@ public class World
 	{
 		for(int i = 0; i < SLICE_COUNT; i++)
 		{
-			System.out.println("Slice: "+i);
-			Slices[i] = new WorldSlice(i);
+			Slices[i] = new WorldSlice(i,0);
 		}
 	}
 	void PushBackSlices()
@@ -39,7 +38,7 @@ public class World
 		// Check math
 		for (int Slice = SLICE_COUNT-WorldBuffer; Slice < SLICE_COUNT; Slice++ )
 		{
-			Slices[Slice] = new WorldSlice(Slices[Slice-1].PrecedingSlices);
+			Slices[Slice] = new WorldSlice(Slices[Slice-1].PrecedingX,0);
 		}
 	}
 	

@@ -1,8 +1,18 @@
 Purpose: To list requirements for the game framework and game in general.
 
+
+
 Immediate:
-	Set slices to work vertically 
+	FIXED: Set slices to work vertically 
+	
+	Create a new container to hold Slices so we can properly layer world slices. (We are getting a little crazy with containers.)
+	    * Will need to layer slices if we don't want to cap the Y movement.
+	    * Need to create new class WorldInstance so we can load/save data to/from text files and prepare world for rendering.
 	- Fix the LIFO stack array in World Class
+
+Ideas:
+
+
 
 ENGINE:
 * Limit the game framerate to a maximum of 60 fps. (Unnecessary frame rendering will slow game logic.

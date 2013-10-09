@@ -8,55 +8,72 @@
 //   Chunk3    |    Chunk3   |
 public class WorldSlice 
 {
-	// How many chunks we want per row.
-	static int NUM_ROW = 5;
+	static final int Rows    = 2;
+	static final int Columns = 10;
 	
-	// How many WorldChunks wide we per column. (Don't change this from 1, code will be reworked)
-	static int NUM_COL = 1;
+	// The width/depth of the blocks/chunks that make up the class sections.
+	// This would be Block width/height for the Class WorldChunk, and would be WorldChunk width/height for Worldslice.
+	static final float ChildWidth  = WorldChunk.Width;
+	static final float ChildHeight = WorldChunk.Height;
 	
-	static float SLICE_WIDTH = WorldChunk.CHUNK_WIDTH  * NUM_COL;
-	static float SLICE_DEPTH = WorldChunk.CHUNK_HEIGHT * NUM_ROW;
-	
-	float Begin_X;
-	float Begin_Y;
-	
-	int PrecedingSlices;
+	// Width/Height of the Slice as a whole.
+	static final float Width  = Columns * ChildWidth;
+	static final float Height = Rows    * ChildHeight;
 
-	WorldChunk WorldChunks[][] = new WorldChunk[NUM_ROW][NUM_COL];
+	// Array containing all WorldChunks that make up a WorldSlice.
+	WorldChunk 	WorldChunks[][] = new WorldChunk[Rows][Columns];;	
 	
-	WorldSlice(int NumPrecedingSlices)
-	{
-		PrecedingSlices = NumPrecedingSlices;
+	// Number of chunks/slices/etc preceding from the left/right and up/down.
+	int PrecedingX;
+	int PrecedingY; //(This actually isn't used anywhere currently.) There isn't a proper ability to layer slices yet.
+	
+	// Number of chunks from the left/right or up/down. 
+	int ProceedingChildrenX; //(PrecedingX * (Width  / ChildWidth ))
+	int ProceedingChildrenY; //(PrecedingY * (Height / ChildHeight))
+	
+	//Starting Position.
+	float X;
+	float Y;
+	
+
+	
+	WorldSlice(int PrecedingSlicesX, int PrecedingSlicesY)
+	{			
+
+		// Number of slices before this one, used for positioning the whole.
+		PrecedingX = PrecedingSlicesX;
+		PrecedingY = PrecedingSlicesY;
 		
-		// Offset new slices so we don't have overlapping chunks/blocks.
-		Begin_X = SLICE_WIDTH*NumPrecedingSlices;
-		Begin_Y = 0;
+		// The starting position of this collection of objects.
+		X = Width  * PrecedingX;
+		Y = Height * PrecedingY;
+		
+		ProceedingChildrenX = (int) (PrecedingX * (Width/ChildWidth)); //Watch out for integer overflow if we have too many chunks.
+		ProceedingChildrenY = (int) (PrecedingY * (Width/ChildHeight));// We will have to do instancing to avoid this more likely or limit level size.
+		
 		Populate();
 	}
-	
+		
 	private void Populate()
 	{
-		
-		for (int Row = 0; Row < NUM_ROW; Row++)
+		for (int Row = 0; Row < Rows; Row++)
 		{
-			for (int Col = 0; Col < NUM_COL; Col++)
+			for (int Col = 0; Col < Columns; Col++)
 			{
 				// Create offset, use Row to specify how many chunks are layered under each other.
-				WorldChunks[Row][Col] = new WorldChunk(PrecedingSlices,Row);
-				//WorldChunks[Row][Col].Populate();
-
+				WorldChunks[Row][Col] = new WorldChunk(ProceedingChildrenX+Col,Row);
+				
 			}
 		}	
 	}
 	
 	void Draw()
 	{
-		for (int Row = 0; Row < NUM_ROW; Row++)
+		for (int Row = 0; Row < Rows; Row++)
 		{
-			for (int Col = 0; Col < NUM_COL; Col++)
+			for (int Col = 0; Col < Columns; Col++)
 			{
 				WorldChunks[Row][Col].Draw();
-
 			}
 		}	
 	}
