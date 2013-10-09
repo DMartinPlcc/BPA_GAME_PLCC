@@ -18,7 +18,7 @@ public class Engine extends BasicGame
 	float XTrans = 0;
 	float YTrans = 0;
 	
-	World WorldInstance;
+	World WInstance;
 		
 	public static final Resource m_Resource = new Resource();
 	
@@ -32,9 +32,11 @@ public class Engine extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		WorldInstance = new World();
+		WInstance = new World();
 		//WorldInstance.PushBackSlices();
 		//WorldInstance.CreateNewSlices();
+		System.out.println("Max Slices_X: "+WorldInstance.MaxChildrenX);
+		System.out.println("Max Slices_Y: "+WorldInstance.MaxChildrenY);
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class Engine extends BasicGame
 		g.translate(XTrans,YTrans);
 
 		
-		WorldInstance.Draw();
+		WInstance.Draw();
 		g.setBackground(new Color(255,255,255));
 		
 		

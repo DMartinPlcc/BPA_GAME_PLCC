@@ -11,14 +11,14 @@ public class WorldChunk
 	
 	// The width/depth of the blocks/chunks that make up the class sections.
 	// This would be Block width/height for the Class WorldChunk, and would be WorldChunk width/height for Worldslice.
-	static final float ChildWidth  = 20;
-	static final float ChildHeight = 20;
+	static final float ChildWidth  = WorldBlock.Width;
+	static final float ChildHeight = WorldBlock.Height;
 	
 	// Width/Height of a WorldChunk as a whole.
 	static final float Width  = Columns * ChildWidth;
 	static final float Height = Rows    * ChildHeight;
 	
-	EntityBlock Blocks[][] = new EntityBlock[Rows][Columns];
+	WorldBlock Blocks[][] = new WorldBlock[Rows][Columns];
 	
 	
 	// Number of chunks/slices/etc preceding from the left/right and up/down.
@@ -57,7 +57,7 @@ public class WorldChunk
 		{
 			for (int Col = 0; Col < Columns; Col++)
 			{
-				Blocks[Row][Col] = new EntityBlock();
+				Blocks[Row][Col] = new WorldBlock();
 				Blocks[Row][Col].m_X = ( Col * ChildWidth ) + X;
 				Blocks[Row][Col].m_Y = ( Row * ChildHeight) + Y;
 				Blocks[Row][Col].SetScale(0.5f);
