@@ -35,8 +35,33 @@ public class Engine extends BasicGame
 		WInstance = new World();
 		//WorldInstance.PushBackSlices();
 		//WorldInstance.CreateNewSlices();
-		System.out.println("Max Slices_X: "+WorldInstance.MaxChildrenX);
-		System.out.println("Max Slices_Y: "+WorldInstance.MaxChildrenY);
+		//System.out.println("Max Slices_X: "+WorldInstance.MaxChildrenX);
+		//System.out.println("Max Slices_Y: "+WorldInstance.MaxChildrenY);
+		
+		Saveable S1 = new Saveable();
+		Saveable S2 = new Saveable();
+		
+		S1.SaveSetKey("TestKey", "TestValue");
+		S2.SaveSetKey("TestKey_Class2", "TestValue_Class2");
+		S1.SaveAddClass(S2.GetSaveData(true));
+		System.out.println(S1.GetSaveData(false));
+		
+		
+		SaveEntityTestChild SETC = new SaveEntityTestChild();
+		SETC.X = 1; SETC.Y = 2; SETC.Z = 3;
+
+		
+		Saveable Save = new Saveable();
+		Save.SaveSetKey("X", 10);
+		Save.SaveSetKey("Y", "5.142");
+		
+		SaveEntityTest Test = new SaveEntityTest(Save);
+		System.out.println("X: "+Test.X+" | Y: "+Test.Y);
+		
+		//SaveEntityTest Test = new SaveEntityTest();
+		//System.out.println(Test.GetSaveData(false));
+		
+		Saveable S = new Saveable("@Testclass\n");
 	}
 
 	@Override
