@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.ImageBuffer;
 
 
-public class EntityStatic extends EntityVisible
+public class EntityImage extends EntityPosition
 {
 	private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class EntityStatic extends EntityVisible
 	
 	float r,g,b,alpha;
 	
-	EntityStatic()
+	EntityImage()
 	{
 		image = new Image(Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga"));
 		

@@ -1,7 +1,7 @@
 import org.newdawn.slick.geom.Rectangle;
 
 
-public class EntityPhysics extends EntityVisible
+public class EntityPhysics extends EntityPosition
 {
 	public class PhysicalProperties
 	{
@@ -33,7 +33,7 @@ public class EntityPhysics extends EntityVisible
 	
 
 	
-	EntityPhysics(EntityVisible vis)
+	EntityPhysics(EntityPosition vis)
 	{
 		rect = new Rectangle(vis.x, vis.y, vis.width, vis.height);
 		

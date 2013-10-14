@@ -5,7 +5,7 @@ import org.newdawn.slick.Input;
 // Daniel Martin Oct 13, 2013
 // Purpose: To aid in the camera's movement, independent of the player.
 
-public class Camera extends EntityVisible
+public class Camera extends EntityPosition
 {
 	private static final long serialVersionUID = 1L;
 	

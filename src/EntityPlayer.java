@@ -1,5 +1,5 @@
 
-public class EntityPlayer extends EntityStatic
+public class EntityPlayer extends EntityImage
 {
 	private static final long serialVersionUID = 1L;
 	
