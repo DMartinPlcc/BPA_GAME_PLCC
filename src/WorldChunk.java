@@ -4,33 +4,31 @@
 
 //NOTE: This only works with an image that has a pixel size of 50x50.
 // ALL *BLOCK* Assets will be a power of, or equally divisible by TEN!!!
-public class WorldChunk
+public class WorldChunk extends EntityBase
 {
-	static final int Rows    = 10;
-	static final int Columns = 10;
+	private static final long serialVersionUID = 1L;
+	static final int ROWS    = 10;
+	static final int COLUMNS = 10;
 	
 	// The width/depth of the blocks/chunks that make up the class sections.
 	// This would be Block width/height for the Class WorldChunk, and would be WorldChunk width/height for Worldslice.
-	static final float ChildWidth  = WorldBlock.Width;
-	static final float ChildHeight = WorldBlock.Height;
+	static final int CHILD_WIDTH  = WorldBlock.WIDTH;
+	static final int CHILD_HEIGHT = WorldBlock.HEIGHT;
 	
 	// Width/Height of a WorldChunk as a whole.
-	static final float Width  = Columns * ChildWidth;
-	static final float Height = Rows    * ChildHeight;
+	static final int WIDTH  = COLUMNS * CHILD_WIDTH;
+	static final int HEIGHT = ROWS    * CHILD_HEIGHT;
 	
-	WorldBlock Blocks[][] = new WorldBlock[Rows][Columns];
+	WorldBlock Blocks[][] = new WorldBlock[ROWS][COLUMNS];
 	
 	
 	// Number of chunks/slices/etc preceding from the left/right and up/down.
-	int PrecedingX;
-	int PrecedingY;
-	
-	//int ProceedingChildrenX; (There isn't a real use for this right now here.)
-	//int ProceedingChildrenY; (There are so many blocks, we could overflow an integer's size depending on how the world is implemented.)
-	
+	int precedingX;
+	int precedingY;
+
 	//Start Position;
-	float X;
-	float Y;
+	float x;
+	float y;
 	
 	// Because all chunks are the same size, we compute the offset by multiplying the
 	// total size of a single chunk's width by the total number of preceding chunks. Giving a proper offset.
@@ -39,37 +37,37 @@ public class WorldChunk
 	{			
 		
 		// Number of slices before this one, used for positioning the whole.
-		PrecedingX = PrecedingChunksX;
-		PrecedingY = PrecedingChunksY;
+		precedingX = PrecedingChunksX;
+		precedingY = PrecedingChunksY;
 		
 		// The starting position of this collection of objects.
-		X = Width  * PrecedingX;
-		Y = Height * PrecedingY;
-		Populate();
+		x = WIDTH  * precedingX;
+		y = HEIGHT * precedingY;
+		populate();
 	}
 	
 	
 	// Populate chunk with a matrix of EntityStatic(s).
-	private void Populate()
+	private void populate()
 	{
 
-		for (int Row = 0; Row < Rows; Row++)
+		for (int Row = 0; Row < ROWS; Row++)
 		{
-			for (int Col = 0; Col < Columns; Col++)
+			for (int Col = 0; Col < COLUMNS; Col++)
 			{
 				Blocks[Row][Col] = new WorldBlock();
-				Blocks[Row][Col].m_X = ( Col * ChildWidth ) + X;
-				Blocks[Row][Col].m_Y = ( Row * ChildHeight) + Y;
-				Blocks[Row][Col].SetScale(0.5f);
+				Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
+				Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
+				Blocks[Row][Col].setScale(0.5f);
 			}
 		}	
 	}
 	
-	void Draw()
+	void draw(float playerX, float playerY)
 	{
-		for (int Row = 0; Row < Rows; Row++)
+		for (int Row = 0; Row < ROWS; Row++)
 		{
-			for (int Col = 0; Col < Columns; Col++)
+			for (int Col = 0; Col < COLUMNS; Col++)
 			{
 				Blocks[Row][Col].draw();
 			}

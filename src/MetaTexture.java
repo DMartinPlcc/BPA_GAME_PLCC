@@ -7,14 +7,14 @@ import org.newdawn.slick.opengl.Texture;
 
 public class MetaTexture 
 {
-	int m_TextureID;
-	int m_Height;
-	int m_Width;
+	int textureID;
+	int height;
+	int width;
 	
 	MetaTexture(Texture T)
 	{
-		m_TextureID = T.getTextureID();
-		m_Height = T.getTextureHeight();
-		m_Width = T.getTextureWidth();
+		textureID = T.getTextureID();
+		height = T.getTextureHeight();
+		width = T.getTextureWidth();
 	}
 }

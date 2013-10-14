@@ -11,25 +11,25 @@ public class Resource
 {
 	class TexturePair
 	{
-		String  m_FilePath;
-		Texture m_Texture;
+		String  filePath;
+		Texture texture;
 	}
 
 
-	Vector<TexturePair> m_TextureList = new Vector<TexturePair>();
+	Vector<TexturePair> textureList = new Vector<TexturePair>();
 
 	
 	
-	Texture LoadTexture(String Path) 
+	Texture loadTexture(String Path) 
 	{
 		
-		for(int i = 0;i < m_TextureList.size();i++)
+		for(int i = 0;i < textureList.size();i++)
 		{
-			TexturePair TP = m_TextureList.get(i);
-			if (TP.m_FilePath == Path)
+			TexturePair TP = textureList.get(i);
+			if (TP.filePath == Path)
 			{
 				//System.out.println("Returned texture successfully: "+TP.m_Texture.getTextureID());
-				return TP.m_Texture;
+				return TP.texture;
 			}
 		}
 		
@@ -37,11 +37,11 @@ public class Resource
 		{
 			
 			TexturePair TP = new TexturePair();
-			TP.m_FilePath = Path;
-			TP.m_Texture = TextureLoader.getTexture("TGA",ResourceLoader.getResourceAsStream(Path));
-			m_TextureList.add(TP);
-			System.out.println("Loaded texture successfully: "+TP.m_Texture.getTextureID());
-			return TP.m_Texture;
+			TP.filePath = Path;
+			TP.texture = TextureLoader.getTexture("TGA",ResourceLoader.getResourceAsStream(Path));
+			textureList.add(TP);
+			System.out.println("Loaded texture successfully: "+TP.texture.getTextureID());
+			return TP.texture;
 			
 		} 
 		catch (IOException e) 

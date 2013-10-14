@@ -1,5 +1,10 @@
 // Daniel Martin Oct/6/2013
 // Purpose: To create a single class for handling the game framework
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,12 +19,17 @@ import org.newdawn.slick.SlickException;
 
 public class Engine extends BasicGame
 {
+	
+	
+	
+	
+	
 	// These will be removed. Camera/world class are todo.
 	float XTrans = 0;
 	float YTrans = 0;
 	
-	World WInstance;
-		
+
+	World worldInstance;
 	public static final Resource m_Resource = new Resource();
 	
 
@@ -32,36 +42,52 @@ public class Engine extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		WInstance = new World();
-		//WorldInstance.PushBackSlices();
-		//WorldInstance.CreateNewSlices();
-		//System.out.println("Max Slices_X: "+WorldInstance.MaxChildrenX);
-		//System.out.println("Max Slices_Y: "+WorldInstance.MaxChildrenY);
+		gc.getGraphics().setBackground(new Color(255,255,255));
 		
-		Saveable S1 = new Saveable();
-		Saveable S2 = new Saveable();
-		
-		S1.SaveSetKey("TestKey", "TestValue");
-		S2.SaveSetKey("TestKey_Class2", "TestValue_Class2");
-		S1.SaveAddClass(S2.GetSaveData(true));
-		System.out.println(S1.GetSaveData(false));
-		
-		
-		SaveEntityTestChild SETC = new SaveEntityTestChild();
-		SETC.X = 1; SETC.Y = 2; SETC.Z = 3;
+		worldInstance = new World();
 
 		
-		Saveable Save = new Saveable();
-		Save.SaveSetKey("X", 10);
-		Save.SaveSetKey("Y", "5.142");
+		//Instance3 = new WorldInstance(0,1); // Bottom Left
+		//Instance4 = new WorldInstance(1,1); // Bottom Right
+		/*
+		WInstance = new World();
+	
+		World S = WInstance;
+	      try
+	      {
+	         FileOutputStream fileOut =
+	         new FileOutputStream("res/world.ser");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(S);
+	         out.close();
+	         fileOut.close();
+	      }catch(IOException i)
+	      {
+	          i.printStackTrace();
+	      }
+	      
+	      World SNew = null;
+
+	      try
+	      {
+	         FileInputStream fileIn = new FileInputStream("res/world.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         SNew = (World) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         return;
+	      }catch(ClassNotFoundException c)
+	      {
+	         System.out.println("Employee class not found");
+	         c.printStackTrace();
+	         return;
+	      }
+	      WInstance = SNew;
+	      */
 		
-		SaveEntityTest Test = new SaveEntityTest(Save);
-		System.out.println("X: "+Test.X+" | Y: "+Test.Y);
-		
-		//SaveEntityTest Test = new SaveEntityTest();
-		//System.out.println(Test.GetSaveData(false));
-		
-		Saveable S = new Saveable("@Testclass\n");
 	}
 
 	@Override
@@ -70,33 +96,14 @@ public class Engine extends BasicGame
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		//g.drawString("Test!", 100, 100);
-
-		// This is VERY temporary. It would be crazy to handle camera movement and drawing like this...
-		if (gc.getInput().isKeyDown(Input.KEY_D))
-		{
-			XTrans -= 2;
-		}
-		else if (gc.getInput().isKeyDown(Input.KEY_A))
-		{
-			XTrans += 2;
-		}
-		if (gc.getInput().isKeyDown(Input.KEY_S))
-		{
-			YTrans -= 2;
-		}
-		else if (gc.getInput().isKeyDown(Input.KEY_W))
-		{
-			YTrans += 2;
-		}
 		
-		g.translate(XTrans,YTrans);
+		
 
 		
-		WInstance.Draw();
-		g.setBackground(new Color(255,255,255));
-		
-		
+		//WInstance.Draw();
+		worldInstance.update(gc);
+		worldInstance.draw(g);
+
 	}
 
 	public static void main(String[] args)

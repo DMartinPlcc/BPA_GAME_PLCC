@@ -4,18 +4,16 @@ Purpose: To list requirements for the game framework and game in general.
 
 Immediate:
 	FIXED: Set slices to work vertically 
+	DONE: Finish/Fix Saveable class. (Java serialization)
+	DONE :Create a new container to hold Slices so we can properly layer world slices. (We are getting a little crazy with containers.)
+	DONE  * Will need to layer slices if we don't want to cap the Y movement.
 	
-	- Finish/Fix Saveable class.
-	 - Allow recursive save classes to hold each other
-	  - Use Saveable as an intermediate "class" class, it should be added and available to SaveKey for proper storing and referencing.
-	   - Test File Loading/Saving.
-	    - Avoid creating classes that create infinite number of objects (not encountered yet).
-	     - Create more intuitive usage if possible of saveable and extended classes.
 	
-	Create a new container to hold Slices so we can properly layer world slices. (We are getting a little crazy with containers.)
-	    * Will need to layer slices if we don't want to cap the Y movement.
-	    * Need to create new class WorldInstance so we can load/save data to/from text files and prepare world for rendering.
-	- Fix the LIFO stack array in World Class
+	-Fix slice drawing algorithim to properly work when drawing multiple slices.
+	
+	* Need to create new class WorldInstance so we can load/save data to/from text files and prepare world for rendering.
+	- Create the LIFO stack array in World Class
+	
 
 Ideas:
 

@@ -1,53 +1,42 @@
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 // Daniel Martin Oct/6/2013
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
-public class World 
+public class World implements java.io.Serializable
 {
-	static int SLICE_COUNT = 1;
+	private static final long serialVersionUID = 1L;	
+	static int ROWS = 1;
+	static int COLUMNS = 1;
 	
-	// When the player reaches this slice, create additional slices.
-	static int WorldBuffer = SLICE_COUNT/2;
+	MetaSave metaData;
 	
-	// number of horizontal world segments
-	WorldSlice Slices[] = new WorldSlice[SLICE_COUNT];
-	WorldMetaData m_MetaData;
 	
-	int NumDeletedSlices;
+	WorldInstance instanceList[][];
+	
+	WorldInstance testInstance;
+	
+	Camera camera;
+	
+	String worldName;
+	int numDeletedInstances;
 	
 	World()
 	{
-		for(int i = 0; i < SLICE_COUNT; i++)
-		{
-			Slices[i] = new WorldSlice(i,0);
-		}
-	}
-	void PushBackSlices()
-	{
-		// Check math
-		WorldSlice NewArray[] = new WorldSlice[SLICE_COUNT];
-		
-		for(int i = 0; i < SLICE_COUNT-WorldBuffer; i++)
-		{
-			NewArray[i] = Slices[i+1];
-		}
-		
-		CreateNewSlices();
+		camera = new Camera(0,0);
+		testInstance = new WorldInstance(0,0);
 	}
 	
-	void CreateNewSlices()
+	void update(GameContainer gc)
 	{
-		// Check math
-		for (int Slice = SLICE_COUNT-WorldBuffer; Slice < SLICE_COUNT; Slice++ )
-		{
-			Slices[Slice] = new WorldSlice(Slices[Slice-1].PrecedingX,0);
-		}
+		camera.update(gc);
 	}
 	
-	void Draw()
+	void draw(Graphics g)
 	{
-		for (int Slice = 0; Slice < SLICE_COUNT; Slice++ )
-		{
-			Slices[Slice].Draw();
-		}
+		camera.draw(g);
+		testInstance.draw(camera.x,camera.y);
+		camera.draw(g);
 	}
 	
 }

@@ -1,3 +1,4 @@
+package Deprecated;
 
 public class SaveEntityTest extends Saveable 
 {
@@ -7,9 +8,10 @@ public class SaveEntityTest extends Saveable
 	
 	SaveEntityTest()
 	{
-		SetSaveClassName("SaveEntityTest");
+		SetClassName("SaveEntityTest");
 		X = 0;
 		Y = 10;
+		
 		for (int i = 0; i < ChildArray.length; i++)
 		{
 			ChildArray[i] = new SaveEntityTestChild();
@@ -19,18 +21,18 @@ public class SaveEntityTest extends Saveable
 	SaveEntityTest(Saveable SaveData)
 	{
 		SetSaveData(SaveData);
-		SetSaveClassName("SaveEntityTest");
+		SetClassName("SaveEntityTest");
 		X = GetInt("X");
 		Y = GetFloat("Y");
 	}
 	
 	void Save()
 	{
-		SaveSetKey("X",X);
-		SaveSetKey("Y",Y);
+		SaveKey("X",X);
+		SaveKey("Y",Y);
 		
 		//SETC.Save();
-		SaveAddClass(ChildArray);
+		SaveClass(ChildArray);
 	}
 	
 

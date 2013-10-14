@@ -1,3 +1,4 @@
+package Deprecated;
 
 public class SaveEntityTestChild extends Saveable
 {
@@ -16,7 +17,7 @@ public class SaveEntityTestChild extends Saveable
 	
 	SaveEntityTestChild()
 	{
-		SetSaveClassName("SaveEntityTestChild");
+		SetClassName("SaveEntityTestChild");
 		X = 1; 
 		Y = 2; 
 		Z = 3;
@@ -24,9 +25,9 @@ public class SaveEntityTestChild extends Saveable
 	
 	void Save()
 	{
-		SaveSetKey("X",X);
-		SaveSetKey("Y",Y);
-		SaveSetKey("Z",Z);
+		SaveKey("X",X);
+		SaveKey("Y",Y);
+		SaveKey("Z",Z);
 	}
 	
 	
