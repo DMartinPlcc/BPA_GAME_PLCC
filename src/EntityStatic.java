@@ -41,6 +41,8 @@ public class EntityStatic extends EntityVisible
 		x = 0;
 		y = 0;
 		scale = 1;
+		width = image.getWidth();
+		height = image.getHeight();
 	}
 	
 	void draw()

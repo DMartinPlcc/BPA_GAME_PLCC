@@ -6,6 +6,7 @@ public class EntityVisible extends EntityBase
 	private static final long serialVersionUID = 1L;
 	
 	float x,y,scale;
+	float width,height;
 	
 	void setPos(float X, float Y)
 	{
@@ -23,6 +24,8 @@ public class EntityVisible extends EntityBase
 	void setScale(float Scale)
 	{
 		scale = Scale;
+		width *= scale;
+		height *= scale;
 	}
 	
 }
