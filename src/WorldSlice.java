@@ -105,6 +105,7 @@ public class WorldSlice implements java.io.Serializable
 		float CenterY = posY_Start+(HEIGHT/2);
 		
 		
+		/*
 		System.out.println();
 		System.out.println("PlayerPos("+playerX+","+playerY+")");
 		System.out.println("Center("+CenterX+","+CenterY+")");
@@ -114,25 +115,27 @@ public class WorldSlice implements java.io.Serializable
 		
 		System.out.println("PlayerPos: "+playerX);
 		System.out.println("Center: "+CenterX);
+		
+		*/
 		// Player past center
 		if (playerX > CenterX)
 		{
-			System.out.println("Past Center");
+			//System.out.println("Past Center");
 		
 			
 			if ((posX_End < playerX))
 			{
-				System.out.println("Slice["+precedingX+"] Skipped");
+				//System.out.println("Slice["+precedingX+"] Skipped");
 				return;
 			}
 		}
 		// Player behind center
 		else
 		{
-			System.out.println("Behind Center");
+			//System.out.println("Behind Center");
 			if (posX_Start > playerX+1280)
 			{
-				System.out.println("Slice["+precedingX+"] Skipped");
+				//System.out.println("Slice["+precedingX+"] Skipped");
 				return;
 			}	
 		}

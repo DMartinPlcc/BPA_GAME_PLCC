@@ -10,7 +10,7 @@ public class WorldInstance implements java.io.Serializable
 	
 
 	static final int ROWS 		=  1;
-	static final int COLUMNS 	=  2;
+	static final int COLUMNS 	=  10;
 	
 	static final int CHILD_WIDTH  = WorldSlice.WIDTH;
 	static final int CHILD_HEIGHT = WorldSlice.HEIGHT;

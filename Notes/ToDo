@@ -9,7 +9,7 @@ Immediate:
 	DONE  * Will need to layer slices if we don't want to cap the Y movement.
 	
 	
-	-Fix slice drawing algorithim to properly work when drawing multiple slices.
+	DONE???? -Fix slice drawing algorithm to properly work when drawing multiple slices.
 	
 	* Need to create new class WorldInstance so we can load/save data to/from text files and prepare world for rendering.
 	- Create the LIFO stack array in World Class

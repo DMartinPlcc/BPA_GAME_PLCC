@@ -16,7 +16,7 @@ public class Camera extends EntityVisible
 	}
 	void draw(Graphics g)
 	{
-		g.translate(x,y);
+		g.translate(-x,-y);
 	
 	}
 	
@@ -26,19 +26,19 @@ public class Camera extends EntityVisible
 		
 		if (gc.getInput().isKeyDown(Input.KEY_D))
 		{
-			x -= MoveSpeed;
+			x += MoveSpeed;
 		}
 		else if (gc.getInput().isKeyDown(Input.KEY_A))
 		{
-			x += MoveSpeed;
+			x -= MoveSpeed;
 		}
 		if (gc.getInput().isKeyDown(Input.KEY_S))
 		{
-			y -= MoveSpeed;
+			y += MoveSpeed;
 		}
 		else if (gc.getInput().isKeyDown(Input.KEY_W))
 		{
-			y += MoveSpeed;
+			y -= MoveSpeed;
 		}
 		
 	}
