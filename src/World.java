@@ -1,8 +1,11 @@
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import java.util.Deque;
 
 // Daniel Martin Oct/6/2013
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
+
+
 public class World implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;	
@@ -19,11 +22,14 @@ public class World implements java.io.Serializable
 	String worldName;
 	int numDeletedInstances;
 	
+	//Deque renderDeque;
+	
 
 	World()
 	{
 		camera = new Camera(0,0);
 		instanceList = new WorldInstance[ROWS][COLUMNS];
+		//renderDeque.push();
 		populate();
 	}
 	

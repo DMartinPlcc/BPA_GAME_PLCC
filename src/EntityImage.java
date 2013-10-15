@@ -14,11 +14,12 @@ public class EntityImage extends EntityPosition
 
 	transient Image image = null;
 	
-	float r,g,b,alpha;
+	Color color;
 	
 	EntityImage()
 	{
-		image = new Image(Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga"));
+		color = new Color(1,1,1);
+		image = Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga");
 		
 		/*
 		ImageBuffer buffer = new ImageBuffer(image.getWidth(),image.getHeight());
@@ -35,8 +36,7 @@ public class EntityImage extends EntityPosition
 		image = buffer.getImage();
 		*/
 		Random rand = new Random();
-		image.setImageColor(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(), 255);
-		
+		color = new Color(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(), color.a);
 		
 		x = 0;
 		y = 0;
@@ -49,27 +49,25 @@ public class EntityImage extends EntityPosition
 	{
 		if (image == null)
 		{
-			image = new Image(Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga"));
+			image = Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga");
 		}
-		image.draw(x,y,scale);
+		image.draw(x, y, scale, color);
 	}
 	
 	void SetColor(float R, float G, float B)
 	{
-		r = R;
-		g = G;
-		b = B;
-		
+		color = new Color(R,G,B,color.a);
 	}
 	
 	void setAlpha(float Alpha)
 	{
-		image.setAlpha(alpha);
+		color.a = Alpha;
 	}
 	
 	void setTexture(String Path)
 	{
-		image.setTexture(Engine.m_Resource.loadTexture(Path));
+		image = null;
+		image = new Image(Engine.m_Resource.loadTexture(Path).getTexture());
 	}
 
 }
