@@ -19,16 +19,6 @@ import org.newdawn.slick.SlickException;
 
 public class Engine extends BasicGame
 {
-	
-	
-	
-	
-	
-	// These will be removed. Camera/world class are todo.
-	float XTrans = 0;
-	float YTrans = 0;
-	
-
 	World worldInstance;
 	public static final Resource m_Resource = new Resource();
 	
@@ -36,13 +26,12 @@ public class Engine extends BasicGame
 	public Engine(String gamename)
 	{
 		super(gamename);
-		
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		gc.getGraphics().setBackground(new Color(255,255,255));
+		gc.getGraphics().setBackground(new Color(50,100,255));
 		
 		worldInstance = new World();
 
@@ -111,7 +100,9 @@ public class Engine extends BasicGame
 		try
 		{
 			AppGameContainer Game = new AppGameContainer(new Engine("Placeholder"));
-			Game.setDisplayMode(1280, 720, false);
+			Game.setDisplayMode(1280, 720, false);			
+			Game.setTargetFrameRate(100);
+			//Game.setVSync(true);
 			Game.start();
 
 		}

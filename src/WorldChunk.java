@@ -55,16 +55,82 @@ public class WorldChunk extends EntityBase
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
 			{
-				Blocks[Row][Col] = new WorldBlock();
-				Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
-				Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
-				Blocks[Row][Col].setScale(0.5f);
+				Blocks[Row][Col] = new WorldBlock(( Col * CHILD_WIDTH ) + x,( Row * CHILD_HEIGHT) + y, 0.5f);
+				//Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
+				//Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
+				//Blocks[Row][Col].setScale(0.5f);
 			}
 		}	
 	}
 	
 	void draw(float playerX, float playerY)
 	{
+		
+		float posX_Start = (precedingX * WIDTH);
+		float posX_End   = posX_Start+WIDTH;
+		
+		float posY_Start = (precedingY * HEIGHT);
+		float posY_End   = posY_Start+HEIGHT;
+		
+		float CenterX = posX_Start+(WIDTH/2);
+		float CenterY = posY_Start+(HEIGHT/2);
+		
+		
+
+		// Player past slice center
+		if (playerX > CenterX)
+		{
+			//System.out.println("Past Center");
+		
+			
+			if ((posX_End < playerX))
+			{
+				//System.out.println("X Chunk["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}
+		}
+		// Player behind slice center
+		else
+		{
+			//System.out.println("Behind Center");
+			if (posX_Start > playerX+1280)
+			{
+				//System.out.println("X Chunk["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}	
+		}
+		
+		
+		// Player past slice center
+		if (playerY > CenterY)
+		{
+			//System.out.println("Past Center");
+		
+			
+			if ((posY_End < playerY))
+			{
+				//System.out.println("Y Chunk["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}
+		}
+		// Player behind slice center
+		else
+		{
+			//System.out.println("Behind Center");
+			if (posY_Start > playerY+720)
+			{
+				//System.out.println("Y Chunk["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}	
+		}
+		
+	
+		
+		
+		
+		
+		
+		
 		for (int Row = 0; Row < ROWS; Row++)
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)

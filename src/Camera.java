@@ -22,7 +22,7 @@ public class Camera extends EntityPosition
 	
 	void update(GameContainer gc)
 	{
-		int MoveSpeed = 5;
+		int MoveSpeed = 10;
 		
 		if (gc.getInput().isKeyDown(Input.KEY_D))
 		{

@@ -8,5 +8,12 @@ public class WorldBlock extends EntityImage
 	// Width/Height of a WorldBlock as a whole.
 	static final int WIDTH  = 20;
 	static final int HEIGHT = 20;
+	
+	WorldBlock(float X, float Y, float Scale)
+	{
+		x = X;
+		y = Y;
+		scale = Scale;
+	}
 
 }

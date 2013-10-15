@@ -9,7 +9,7 @@ public class WorldInstance implements java.io.Serializable
 	//static int MaxChildrenY = (int) (MAX_FLOAT/((WorldBlock.Height*WorldChunk.Rows)*(WorldSlice.Rows*WorldSlice.Height)));
 	
 
-	static final int ROWS 		=  1;
+	static final int ROWS 		=  10;
 	static final int COLUMNS 	=  10;
 	
 	static final int CHILD_WIDTH  = WorldSlice.WIDTH;
@@ -23,10 +23,6 @@ public class WorldInstance implements java.io.Serializable
 	
 	int precedingX;
 	int precedingY;
-	
-
-	static int SLICES_X  = WorldSlice.WIDTH  * COLUMNS;
-	static int SLICES_Y  = WorldSlice.HEIGHT * ROWS;
 	
 	int precedingChildrenX;
 	int precedingChildrenY;
@@ -47,9 +43,9 @@ public class WorldInstance implements java.io.Serializable
 		
 		precedingX = PrecedingInstancesX;
 		precedingY = PrecedingInstancesY;
-		
-		precedingChildrenX = precedingX * SLICES_X;
-		precedingChildrenY = precedingY * SLICES_Y;
+				
+		precedingChildrenX = (int) (precedingX * COLUMNS); 
+		precedingChildrenY = (int) (precedingY * ROWS);
 		
 		populate();
 	}
@@ -69,7 +65,7 @@ public class WorldInstance implements java.io.Serializable
 				
 				// Create offset, use Row to specify how many chunks are layered under each other.
 				slices[Row][Col] = new WorldSlice(TempPreceedX,TempPreceedY);
-				System.out.println();
+				
 				TempPreceedY++;
 
 			}
@@ -82,24 +78,67 @@ public class WorldInstance implements java.io.Serializable
 	
 	void draw(float playerX,float playerY)
 	{
-		
+
 		/*
-		
-		float absPlayerX = Math.abs(playerX);
-		float absPlayerY = Math.abs(playerY);
-		
 		float posX_Start = (precedingX * WIDTH);
-		float posX_End   = (precedingX * WIDTH)+WIDTH;
+		float posX_End   = posX_Start+WIDTH;
 		
 		float posY_Start = (precedingY * HEIGHT);
-		float posY_End   = (precedingY * HEIGHT)+HEIGHT;
+		float posY_End   = posY_Start+HEIGHT;
 		
 		float CenterX = posX_Start+(WIDTH/2);
 		float CenterY = posY_Start+(HEIGHT/2);
 		
 		
-		*/
+
+		// Player past slice center
+		if (playerX > CenterX)
+		{
+			//System.out.println("Past Center");
 		
+			
+			if ((posX_End < playerX))
+			{
+				//System.out.println("X Instance["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}
+		}
+		// Player behind slice center
+		else
+		{
+			//System.out.println("Behind Center");
+			if (posX_Start > playerX+1280)
+			{
+				//System.out.println("X Instance["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}	
+		}
+		
+		
+		// Player past slice center
+		if (playerY > CenterY)
+		{
+			//System.out.println("Past Center");
+		
+			
+			if ((posY_End < playerY))
+			{
+				//System.out.println("Y Instance["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}
+		}
+		// Player behind slice center
+		else
+		{
+			//System.out.println("Behind Center");
+			if (posY_Start > playerY+720)
+			{
+				//System.out.println("Y Instance["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}	
+		}
+		
+		*/
 		
 		for (int Row = 0; Row < ROWS; Row++)
 		{

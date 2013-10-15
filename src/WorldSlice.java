@@ -57,12 +57,6 @@ public class WorldSlice implements java.io.Serializable
 		//System.out.println("ProceedingChildrenX: "+ProceedingChildrenX);
 		//System.out.println("ProceedingChildrenY: "+ProceedingChildrenY);		
 		
-		
-		System.out.println("Created Slice:");
-		System.out.println("Width: "+WIDTH);
-		System.out.println("PreceedingX: "+precedingX);
-		System.out.println("PositionX: "+x);
-		
 		populate();
 	}
 		
@@ -79,7 +73,6 @@ public class WorldSlice implements java.io.Serializable
 				
 				// Create offset, use Row to specify how many chunks are layered under each other.
 				worldChunks[Row][Col] = new WorldChunk(TempPreceedX,TempPreceedY);
-				System.out.println();
 				TempPreceedY++;
 
 			}
@@ -92,32 +85,19 @@ public class WorldSlice implements java.io.Serializable
 	void draw(float playerX, float playerY)
 	{		
 		
-		float absPlayerX = Math.abs(playerX);
-		float absPlayerY = Math.abs(playerY);
-		
+
 		float posX_Start = (precedingX * WIDTH);
-		float posX_End   = (precedingX * WIDTH)+WIDTH;
+		float posX_End   = posX_Start+WIDTH;
 		
 		float posY_Start = (precedingY * HEIGHT);
-		float posY_End   = (precedingY * HEIGHT)+HEIGHT;
+		float posY_End   = posY_Start+HEIGHT;
 		
 		float CenterX = posX_Start+(WIDTH/2);
 		float CenterY = posY_Start+(HEIGHT/2);
 		
 		
-		/*
-		System.out.println();
-		System.out.println("PlayerPos("+playerX+","+playerY+")");
-		System.out.println("Center("+CenterX+","+CenterY+")");
-		System.out.println("Start ("+posX_Start+","+posY_Start+")");
-		System.out.println("End   ("+posX_End+","+posY_End+")");
-		System.out.println();
-		
-		System.out.println("PlayerPos: "+playerX);
-		System.out.println("Center: "+CenterX);
-		
-		*/
-		// Player past center
+
+		// Player past slice center
 		if (playerX > CenterX)
 		{
 			//System.out.println("Past Center");
@@ -125,17 +105,41 @@ public class WorldSlice implements java.io.Serializable
 			
 			if ((posX_End < playerX))
 			{
-				//System.out.println("Slice["+precedingX+"] Skipped");
+				//System.out.println("X Slice["+precedingY+"]["+precedingX+"] Skipped");
 				return;
 			}
 		}
-		// Player behind center
+		// Player behind slice center
 		else
 		{
 			//System.out.println("Behind Center");
 			if (posX_Start > playerX+1280)
 			{
-				//System.out.println("Slice["+precedingX+"] Skipped");
+				//System.out.println("X Slice["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}	
+		}
+		
+		
+		// Player past slice center
+		if (playerY > CenterY)
+		{
+			//System.out.println("Past Center");
+		
+			
+			if ((posY_End < playerY))
+			{
+				//System.out.println("Y Slice["+precedingY+"]["+precedingX+"] Skipped");
+				return;
+			}
+		}
+		// Player behind slice center
+		else
+		{
+			//System.out.println("Behind Center");
+			if (posY_Start > playerY+720)
+			{
+				//System.out.println("Y Slice["+precedingY+"]["+precedingX+"] Skipped");
 				return;
 			}	
 		}
