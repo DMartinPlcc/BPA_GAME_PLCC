@@ -4,7 +4,7 @@ import org.newdawn.slick.Input;
 
 //import java.util.Deque;
 
-// Daniel Martin Oct/6/2013
+// Daniel Martin Oct/6/2013 // Edited: Clayton Hubbell Oct. 16th, 2013
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
 
 
@@ -35,48 +35,52 @@ public class World implements java.io.Serializable
 		populate();
 	}
 	
-	void addRight()
+	void pushInstance(int X, int Y)
 	{
-		
-		instanceList[0][0] = instanceList[0][1];				
-		instanceList[0][1] = new WorldInstance(instanceList[0][1].precedingX+1,instanceList[0][1].precedingY);
+		//push right
+		if(X == 1)
+		{
+			
+				instanceList[0][0] = instanceList[0][1];				
+				instanceList[0][1] = new WorldInstance(instanceList[0][1].precedingX+1,instanceList[0][1].precedingY);
+						
+				instanceList[1][0] = instanceList[1][1];				
+				instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX+1,instanceList[1][1].precedingY);
+			
+		}
+		else // push left
+			if(X == -1)
+			{
+				instanceList[0][1] = instanceList[0][0];
+				instanceList[0][0] = new WorldInstance(instanceList[0][0].precedingX-1,instanceList[0][0].precedingY);		
 				
-		instanceList[1][0] = instanceList[1][1];				
-		instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX+1,instanceList[1][1].precedingY);
-
-	}
-	
-	void addLeft()
-	{
+				
+				instanceList[1][1] = instanceList[1][0];
+				instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX-1,instanceList[1][0].precedingY);			
+				
+			}
+		//push up
+		if (Y == 1)
+		{
+			instanceList[1][0] = instanceList[0][0];		
+			instanceList[0][0] =  new WorldInstance(instanceList[0][0].precedingX,instanceList[0][0].precedingY-1);
+			
+			
+			instanceList[1][1] = instanceList[0][1];		
+			instanceList[0][1] =  new WorldInstance(instanceList[0][1].precedingX,instanceList[0][1].precedingY-1);
 		
-		instanceList[0][1] = instanceList[0][0];
-		instanceList[0][0] = new WorldInstance(instanceList[0][0].precedingX-1,instanceList[0][0].precedingY);		
-		
-		
-		instanceList[1][1] = instanceList[1][0];
-		instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX-1,instanceList[1][0].precedingY);			
-	}
-	
-	void addDown()
-	{
-		
-		instanceList[0][0] = instanceList[1][0];
-		instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX,instanceList[1][0].precedingY+1);		
-		
-		
-		instanceList[0][1] = instanceList[1][1];
-		instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX,instanceList[1][1].precedingY+1);				
-	}
-	
-	void addUp()
-	{
-		
-		instanceList[1][0] = instanceList[0][0];		
-		instanceList[0][0] =  new WorldInstance(instanceList[0][0].precedingX,instanceList[0][0].precedingY-1);
-		
-		
-		instanceList[1][1] = instanceList[0][1];		
-		instanceList[0][1] =  new WorldInstance(instanceList[0][1].precedingX,instanceList[0][1].precedingY-1);
+		}
+		else//push down
+			if(Y == -1)
+			{
+				instanceList[0][0] = instanceList[1][0];
+				instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX,instanceList[1][0].precedingY+1);		
+				
+				
+				instanceList[0][1] = instanceList[1][1];
+				instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX,instanceList[1][1].precedingY+1);				
+				
+			}
 	}
 	
 	
@@ -114,23 +118,23 @@ public class World implements java.io.Serializable
 			if (gc.getInput().isKeyDown(Input.KEY_E))
 			{
 				System.out.println("Added Right!");
-				addRight();
+				pushInstance(1,0);
 			}
 			if (gc.getInput().isKeyDown(Input.KEY_Q))
 			{
 				System.out.println("Added Left!");
-				addLeft();
+				pushInstance(-1,0);
 			}
 			
 			if (gc.getInput().isKeyDown(Input.KEY_X))
 			{
 				System.out.println("Added Down!");
-				addDown();
+				pushInstance(0,-1);
 			}
 			if (gc.getInput().isKeyDown(Input.KEY_C))
 			{
 				System.out.println("Added Up!");
-				addUp();
+				pushInstance(0,1);
 			}
 			
 			
