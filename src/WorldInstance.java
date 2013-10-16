@@ -9,8 +9,8 @@ public class WorldInstance implements java.io.Serializable
 	//static int MaxChildrenY = (int) (MAX_FLOAT/((WorldBlock.Height*WorldChunk.Rows)*(WorldSlice.Rows*WorldSlice.Height)));
 	
 
-	static final int ROWS 		=  10;
-	static final int COLUMNS 	=  10;
+	static final int ROWS 		=  1;
+	static final int COLUMNS 	=  1;
 	
 	static final int CHILD_WIDTH  = WorldSlice.WIDTH;
 	static final int CHILD_HEIGHT = WorldSlice.HEIGHT;

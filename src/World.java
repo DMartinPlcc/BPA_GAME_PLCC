@@ -1,5 +1,7 @@
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+
 import java.util.Deque;
 
 // Daniel Martin Oct/6/2013
@@ -22,16 +24,62 @@ public class World implements java.io.Serializable
 	String worldName;
 	int numDeletedInstances;
 	
-	//Deque renderDeque;
+	long lastUpdate;
+	long nextUpdate;
 	
 
 	World()
 	{
 		camera = new Camera(0,0);
 		instanceList = new WorldInstance[ROWS][COLUMNS];
-		//renderDeque.push();
 		populate();
 	}
+	
+	void addRight()
+	{
+		
+		instanceList[0][0] = instanceList[0][1];				
+		instanceList[0][1] = new WorldInstance(instanceList[0][1].precedingX+1,instanceList[0][1].precedingY);
+				
+		instanceList[1][0] = instanceList[1][1];				
+		instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX+1,instanceList[1][1].precedingY);
+
+	}
+	
+	void addLeft()
+	{
+		
+		instanceList[0][1] = instanceList[0][0];
+		instanceList[0][0] = new WorldInstance(instanceList[0][0].precedingX-1,instanceList[0][0].precedingY);		
+		
+		
+		instanceList[1][1] = instanceList[1][0];
+		instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX-1,instanceList[1][0].precedingY);			
+	}
+	
+	void addDown()
+	{
+		
+		instanceList[0][0] = instanceList[1][0];
+		instanceList[1][0] = new WorldInstance(instanceList[1][0].precedingX,instanceList[1][0].precedingY+1);		
+		
+		
+		instanceList[0][1] = instanceList[1][1];
+		instanceList[1][1] = new WorldInstance(instanceList[1][1].precedingX,instanceList[1][1].precedingY+1);				
+	}
+	
+	void addUp()
+	{
+		
+		instanceList[1][0] = instanceList[0][0];		
+		instanceList[0][0] =  new WorldInstance(instanceList[0][0].precedingX,instanceList[0][0].precedingY-1);
+		
+		
+		instanceList[1][1] = instanceList[0][1];		
+		instanceList[0][1] =  new WorldInstance(instanceList[0][1].precedingX,instanceList[0][1].precedingY-1);
+	}
+	
+	
 	
 	
 	void populate()
@@ -59,7 +107,37 @@ public class World implements java.io.Serializable
 	
 	void update(GameContainer gc)
 	{
+		lastUpdate = gc.getTime();
+		if (lastUpdate >= nextUpdate)
+		{
+			nextUpdate = lastUpdate + 1000;
+
+			if (gc.getInput().isKeyDown(Input.KEY_E))
+			{
+				System.out.println("Added Right!");
+				addRight();
+			}
+			if (gc.getInput().isKeyDown(Input.KEY_Q))
+			{
+				System.out.println("Added Left!");
+				addLeft();
+			}
+			
+			if (gc.getInput().isKeyDown(Input.KEY_X))
+			{
+				System.out.println("Added Down!");
+				addDown();
+			}
+			if (gc.getInput().isKeyDown(Input.KEY_C))
+			{
+				System.out.println("Added Up!");
+				addUp();
+			}
+			
+			
+		}
 		camera.update(gc);
+
 	}
 	
 	void draw(Graphics g)
