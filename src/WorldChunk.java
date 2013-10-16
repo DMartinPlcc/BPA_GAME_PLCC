@@ -1,3 +1,5 @@
+import java.util.Random;
+
 // Daniel Martin Oct/6/2013
 // Purpose: Contains an X by Y matrix of world blocks.
 // Currently for testing purposes only. 
@@ -55,7 +57,11 @@ public class WorldChunk extends EntityBase
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
 			{
-				Blocks[Row][Col] = new WorldBlock(( Col * CHILD_WIDTH ) + x,( Row * CHILD_HEIGHT) + y, 0.5f);
+				Random rand = new Random();
+				
+				float randFloat = rand.nextFloat();
+				Blocks[Row][Col] = new WorldBlock(( Col * CHILD_WIDTH ) + x,( Row * CHILD_HEIGHT) + y,1);
+				//Blocks[Row][Col].setAlpha(rand.nextInt());
 				//Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
 				//Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
 				//Blocks[Row][Col].setScale(0.5f);

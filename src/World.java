@@ -2,7 +2,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-import java.util.Deque;
+//import java.util.Deque;
 
 // Daniel Martin Oct/6/2013
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
@@ -110,8 +110,7 @@ public class World implements java.io.Serializable
 		lastUpdate = gc.getTime();
 		if (lastUpdate >= nextUpdate)
 		{
-			nextUpdate = lastUpdate + 1000;
-
+			nextUpdate = lastUpdate + 500;
 			if (gc.getInput().isKeyDown(Input.KEY_E))
 			{
 				System.out.println("Added Right!");

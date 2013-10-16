@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.ImageBuffer;
+//import org.newdawn.slick.ImageBuffer;
 
 
 public class EntityImage extends EntityPosition
@@ -19,7 +19,7 @@ public class EntityImage extends EntityPosition
 	EntityImage()
 	{
 		color = new Color(1,1,1);
-		image = Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga");
+		image = Engine.m_Resource.loadTexture("res/sprites/tile/block_1_20.tga");
 		
 		/*
 		ImageBuffer buffer = new ImageBuffer(image.getWidth(),image.getHeight());
@@ -36,7 +36,7 @@ public class EntityImage extends EntityPosition
 		image = buffer.getImage();
 		*/
 		Random rand = new Random();
-		color = new Color(rand.nextFloat(),rand.nextFloat(),rand.nextFloat(), color.a);
+		color = new Color(0,rand.nextFloat(),rand.nextFloat()/3, color.a);
 		
 		x = 0;
 		y = 0;

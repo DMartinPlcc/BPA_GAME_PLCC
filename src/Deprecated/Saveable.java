@@ -21,7 +21,7 @@ public class Saveable
 	// This is add classes that already exist.
 	// I don't feel that any class should have to repeatedly load instances.
 	// Loading should happen once, around the class construction phase.
-	private boolean Loaded; 
+	//private boolean Loaded; 
 	
 	Saveable()
 	{
@@ -30,7 +30,7 @@ public class Saveable
 		 Classes = new Vector<Saveable>(0);
 		 UniqueNumber = -2000000000;
 		 UniqueChildNumber = UniqueNumber;
-		 Loaded = false;
+		 //Loaded = false;
 		 SaveKey("UniqueNumber",UniqueNumber);
 	}
 	

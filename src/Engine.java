@@ -1,10 +1,12 @@
 // Daniel Martin Oct/6/2013
 // Purpose: To create a single class for handling the game framework
+/*
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+*/
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +15,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
+//import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 

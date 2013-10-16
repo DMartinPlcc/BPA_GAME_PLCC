@@ -5,6 +5,8 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class EntityPhysics extends EntityPosition
 {
+	private static final long serialVersionUID = 1L;
+
 	public class PhysicalProperties
 	{
 		float bounce,mass,friction;
