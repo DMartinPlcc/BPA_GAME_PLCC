@@ -13,3 +13,4 @@ Our code is free to use, and is in no way proprietary.
 However, we require to be  credited by those who use software, intellectual, or creative parts of this project in their own personal or commercial project. 
 Please contact us if you wish to use the entirety, or parts of this project for a commercial use.
 
+Archimedes Studios retains all rights to our source code, ideas, and assets.
