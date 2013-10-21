@@ -1,7 +1,7 @@
 //Bruce, Jacob - 10-14-13
 //Defines the bounding box for the entity 
-import org.newdawn.slick.geom.Rectangle;
 
+import org.newdawn.slick.geom.Rectangle;
 
 public class EntityPhysics extends EntityPosition
 {

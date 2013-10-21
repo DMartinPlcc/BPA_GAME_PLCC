@@ -1,14 +1,13 @@
 // Daniel Martin Oct/6/2013
 // Purpose: Prevent the same asset from being allocated multiple times.
-import java.io.IOException;
 
+import java.io.IOException;
 import org.newdawn.slick.Image;
 //import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.util.Vector;
-
 
 public class Resource
 {

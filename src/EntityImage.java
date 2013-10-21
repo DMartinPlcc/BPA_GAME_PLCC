@@ -2,7 +2,6 @@
 // Purpose: Provide extensible class for entities that are not animated but still drawn in the world.
 
 import java.util.Random;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 //import org.newdawn.slick.ImageBuffer;

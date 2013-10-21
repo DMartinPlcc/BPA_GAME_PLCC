@@ -1,5 +1,3 @@
-import java.util.Random;
-
 // Daniel Martin Oct/6/2013
 // Purpose: Contains an X by Y matrix of world blocks.
 // Currently for testing purposes only. 
@@ -32,6 +30,18 @@ public class WorldChunk extends EntityBase
 	float x;
 	float y;
 	
+	
+	WorldChunk(WorldChunk Chunk)
+	{
+		Blocks = Chunk.Blocks.clone();
+		precedingX = Chunk.precedingX;
+		precedingY = Chunk.precedingY;
+
+		x = Chunk.x;
+		y = Chunk.y;
+	}
+	
+	
 	// Because all chunks are the same size, we compute the offset by multiplying the
 	// total size of a single chunk's width by the total number of preceding chunks. Giving a proper offset.
 	// This implies that the blocks are contiguous, however.
@@ -48,6 +58,23 @@ public class WorldChunk extends EntityBase
 		populate();
 	}
 	
+	void recomputePosition(int PrecedingChunksX, int PrecedingChunksY)
+	{
+		precedingX = PrecedingChunksX;
+		precedingY = PrecedingChunksY;
+		
+		x = WIDTH  * precedingX;
+		y = HEIGHT * precedingY;
+		
+		for (int Row = 0; Row < ROWS; Row++)
+		{
+			for (int Col = 0; Col < COLUMNS; Col++)
+			{
+				Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
+				Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
+			}
+		}	
+	}
 	
 	// Populate chunk with a matrix of EntityStatic(s).
 	private void populate()
@@ -57,9 +84,7 @@ public class WorldChunk extends EntityBase
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
 			{
-				Random rand = new Random();
 				
-				float randFloat = rand.nextFloat();
 				Blocks[Row][Col] = new WorldBlock(( Col * CHILD_WIDTH ) + x,( Row * CHILD_HEIGHT) + y,1);
 				//Blocks[Row][Col].setAlpha(rand.nextInt());
 				//Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;

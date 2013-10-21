@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 
 public class WorldInstance implements java.io.Serializable
 {
@@ -9,8 +14,8 @@ public class WorldInstance implements java.io.Serializable
 	//static int MaxChildrenY = (int) (MAX_FLOAT/((WorldBlock.Height*WorldChunk.Rows)*(WorldSlice.Rows*WorldSlice.Height)));
 	
 
-	static final int ROWS 		=  1;
-	static final int COLUMNS 	=  1;
+	static final int ROWS 		=  2;
+	static final int COLUMNS 	=  2;
 	
 	static final int CHILD_WIDTH  = WorldSlice.WIDTH;
 	static final int CHILD_HEIGHT = WorldSlice.HEIGHT;
@@ -38,36 +43,81 @@ public class WorldInstance implements java.io.Serializable
 	WorldSlice slices[][] = new WorldSlice[ROWS][COLUMNS];
 		
 	
+	WorldInstance(WorldInstance Instance)
+	{
+		slices = Instance.slices.clone();
+		precedingX = Instance.precedingX;
+		precedingY = Instance.precedingY;
+		
+		precedingChildrenX = Instance.precedingChildrenX;
+		precedingChildrenY = Instance.precedingChildrenY;
+	}
 	WorldInstance(int PrecedingInstancesX,int PrecedingInstancesY)
 	{
+		computeOffsets(PrecedingInstancesX,PrecedingInstancesY);
+		populate();
+	}
+	
+	void save(String WorldName,int Generation)
+	{
+		new File("res/save/"+WorldName).mkdirs();
+		try
+	      {
+	         FileOutputStream fileOut =
+	         new FileOutputStream("res/save/"+WorldName+"/"+"WorldInstance_"+Generation+"_"+precedingX+"_"+precedingY+".ser");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(this);
+	         out.close();
+	         fileOut.close();
+	         System.out.printf("Serialized data is saved in /save/"+WorldName+"/"+"WorldInstance_"+Generation+"_"+precedingX+"_"+precedingY+".ser");
+	      }catch(IOException i)
+	      {
+	  
+	          i.printStackTrace();
+	      }
 		
+	}
+		
+	void computeOffsets(int PrecedingInstancesX,int PrecedingInstancesY)
+	{
 		precedingX = PrecedingInstancesX;
 		precedingY = PrecedingInstancesY;
 				
 		precedingChildrenX = (int) (precedingX * COLUMNS); 
 		precedingChildrenY = (int) (precedingY * ROWS);
-		
-		populate();
 	}
 	
-	private void populate()
-	{
-		
+	void recomputePosition(int PrecedingInstancesX,int PrecedingInstancesY)
+	{	
+		computeOffsets(PrecedingInstancesX,PrecedingInstancesY);
 		
 		int TempPreceedX = precedingChildrenX;
 		int TempPreceedY = precedingChildrenY;
 		
 		for (int Col = 0; Col < COLUMNS; Col++)
 		{
-			
 			for (int Row = 0; Row < ROWS; Row++)
 			{
-				
+				slices[Row][Col].recomputePosition(TempPreceedX,TempPreceedY);
+				TempPreceedY++;
+			}
+			TempPreceedY = precedingChildrenY;
+			TempPreceedX++;
+		}	
+	}
+	
+	private void populate()
+	{	
+		int TempPreceedX = precedingChildrenX;
+		int TempPreceedY = precedingChildrenY;
+		
+		for (int Col = 0; Col < COLUMNS; Col++)
+		{
+			for (int Row = 0; Row < ROWS; Row++)
+			{
 				// Create offset, use Row to specify how many chunks are layered under each other.
 				slices[Row][Col] = new WorldSlice(TempPreceedX,TempPreceedY);
-				
 				TempPreceedY++;
-
 			}
 			TempPreceedY = precedingChildrenY;
 			TempPreceedX++;
@@ -75,7 +125,6 @@ public class WorldInstance implements java.io.Serializable
 		}	
 	}
 		
-	
 	void draw(float playerX,float playerY)
 	{
 

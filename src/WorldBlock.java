@@ -9,11 +9,26 @@ public class WorldBlock extends EntityImage
 	static final int WIDTH  = 20;
 	static final int HEIGHT = 20;
 	
+	WorldBlock(WorldBlock Block)
+	{
+		x = Block.x;
+		y = Block.y;
+		scale = Block.scale;
+		
+		width  = WIDTH;
+		height = HEIGHT;
+		image = Block.image;
+		color = Block.color;
+	}
+	
 	WorldBlock(float X, float Y, float Scale)
 	{
 		x = X;
 		y = Y;
 		scale = Scale;
+		
+		width = WIDTH;
+		height = HEIGHT;
 	}
 
 }

@@ -6,6 +6,8 @@
 //   Chunk1    |    Chunk1   |
 //   Chunk2    |    Chunk2   |
 //   Chunk3    |    Chunk3   |
+
+
 public class WorldSlice implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -38,10 +40,27 @@ public class WorldSlice implements java.io.Serializable
 	float y;
 	
 
+	WorldSlice(WorldSlice Slice)
+	{
+		worldChunks = Slice.worldChunks.clone();
+		precedingX = Slice.precedingX;
+		precedingY = Slice.precedingY;
+		
+		precedingChildrenX = Slice.precedingChildrenX;
+		precedingChildrenY = Slice.precedingChildrenY;
+
+		x = Slice.x;
+		y = Slice.y;
+	}
 	
 	WorldSlice(int PrecedingSlicesX, int PrecedingSlicesY)
 	{			
-
+		computeOffsets(PrecedingSlicesX,PrecedingSlicesY);
+		populate();
+	}
+	
+	void computeOffsets(int PrecedingSlicesX, int PrecedingSlicesY)
+	{
 		// Number of slices before this one, used for positioning the whole.
 		precedingX = PrecedingSlicesX;
 		precedingY = PrecedingSlicesY;
@@ -53,13 +72,29 @@ public class WorldSlice implements java.io.Serializable
 		
 		precedingChildrenX = (int) (precedingX * (COLUMNS)); //Watch out for integer overflow if we have too many chunks.
 		precedingChildrenY = (int) (precedingY * (ROWS));// We will have to do instancing to avoid this more likely or limit level size.
-		
-		//System.out.println("ProceedingChildrenX: "+ProceedingChildrenX);
-		//System.out.println("ProceedingChildrenY: "+ProceedingChildrenY);		
-		
-		populate();
+	
 	}
 		
+	void recomputePosition(int PrecedingSlicesX, int PrecedingSlicesY)
+	{
+		computeOffsets(PrecedingSlicesX,PrecedingSlicesY);
+		
+		int TempPreceedX = precedingChildrenX;
+		int TempPreceedY = precedingChildrenY;
+		
+		for (int Col = 0; Col < COLUMNS; Col++)
+		{
+			
+			for (int Row = 0; Row < ROWS; Row++)
+			{
+				worldChunks[Row][Col].recomputePosition(TempPreceedX,TempPreceedY);
+				TempPreceedY++;
+			}
+			TempPreceedY = precedingChildrenY;
+			TempPreceedX++;
+		}	
+	}
+	
 	private void populate()
 	{
 		int TempPreceedX = precedingChildrenX;

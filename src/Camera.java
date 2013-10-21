@@ -1,9 +1,9 @@
+// Daniel Martin Oct 13, 2013
+// Purpose: To aid in the camera's movement, independent of the player.
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-
-// Daniel Martin Oct 13, 2013
-// Purpose: To aid in the camera's movement, independent of the player.
 
 public class Camera extends EntityPosition
 {
