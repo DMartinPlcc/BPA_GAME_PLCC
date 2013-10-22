@@ -2,7 +2,10 @@
 // Purpose: Prevent the same asset from being allocated multiple times.
 
 import java.io.IOException;
+
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 //import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -16,12 +19,54 @@ public class Resource
 		String  filePath;
 		Image image;
 	}
-
+	class SoundPair
+	{
+		String  filePath;
+		Sound sound;
+	}
 
 	Vector<TexturePair> textureList = new Vector<TexturePair>();
+	Vector<SoundPair> soundList = new Vector<SoundPair>();
+
+
 
 	
+	// Sound effect system
+	Sound loadSound(String Path) 
+	{
+		
+		for(int i = 0;i < soundList.size();i++)
+		{
+			SoundPair TP = soundList.get(i);
+			if (TP.filePath == Path)
+			{
+				//System.out.println("Returned sound successfully: "+TP.m_Texture.getTextureID());
+				return TP.sound;
+			}
+		}
+		
+
+			
+			SoundPair TP = new SoundPair();
+			TP.filePath = Path;
+			try {
+				TP.sound = new Sound(Path);
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			soundList.add(TP);
+			System.out.println("Loaded sound successfully: "+TP.filePath);
+			return TP.sound;
+			
+
+
+	}
 	
+	
+
+
+	// Loading textures 
 	Image loadTexture(String Path) 
 	{
 		
