@@ -70,8 +70,7 @@ public class WorldChunk extends EntityBase
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
 			{
-				Blocks[Row][Col].x = ( Col * CHILD_WIDTH ) + x;
-				Blocks[Row][Col].y = ( Row * CHILD_HEIGHT) + y;
+				Blocks[Row][Col].setPos( (( Col * CHILD_WIDTH ) + x),(( Row * CHILD_HEIGHT) + y) );
 			}
 		}	
 	}

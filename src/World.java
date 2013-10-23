@@ -69,7 +69,7 @@ public class World implements java.io.Serializable
 	void draw(Graphics g) 
 	{
 		camera.draw(g);
-		treadmill.draw(g, camera.x, camera.y);
+		treadmill.draw(g, camera.pos.x, camera.pos.y);
 	}
 
 }

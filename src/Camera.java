@@ -11,12 +11,11 @@ public class Camera extends EntityPosition
 	
 	Camera(float X, float Y)
 	{
-		x = X;
-		y = Y;
+		setPos(X,Y);
 	}
 	void draw(Graphics g)
 	{
-		g.translate(-x,-y);
+		g.translate(-pos.x,-pos.y);
 	
 	}
 	
@@ -26,19 +25,19 @@ public class Camera extends EntityPosition
 		
 		if (gc.getInput().isKeyDown(Input.KEY_D))
 		{
-			x += MoveSpeed;
+			pos.x += MoveSpeed;
 		}
 		else if (gc.getInput().isKeyDown(Input.KEY_A))
 		{
-			x -= MoveSpeed;
+			pos.x -= MoveSpeed;
 		}
 		if (gc.getInput().isKeyDown(Input.KEY_S))
 		{
-			y += MoveSpeed;
+			pos.y += MoveSpeed;
 		}
 		else if (gc.getInput().isKeyDown(Input.KEY_W))
 		{
-			y -= MoveSpeed;
+			pos.y -= MoveSpeed;
 		}
 		
 	}

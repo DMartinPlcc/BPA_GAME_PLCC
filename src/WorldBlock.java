@@ -11,9 +11,7 @@ public class WorldBlock extends EntityImage
 	
 	WorldBlock(WorldBlock Block)
 	{
-		x = Block.x;
-		y = Block.y;
-		scale = Block.scale;
+		setPos(Block.pos.x,Block.pos.y,Block.scale);
 		
 		width  = WIDTH;
 		height = HEIGHT;
@@ -23,10 +21,8 @@ public class WorldBlock extends EntityImage
 	
 	WorldBlock(float X, float Y, float Scale)
 	{
-		x = X;
-		y = Y;
-		scale = Scale;
-		
+		setPos(X,Y,Scale);
+	
 		width = WIDTH;
 		height = HEIGHT;
 	}

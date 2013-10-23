@@ -37,9 +37,7 @@ public class EntityImage extends EntityPosition
 		Random rand = new Random();
 		color = new Color(0,rand.nextFloat(),rand.nextFloat()/3, color.a);
 		
-		x = 0;
-		y = 0;
-		scale = 1;
+		setPos(0,0,1);
 		width = image.getWidth();
 		height = image.getHeight();
 	}
@@ -50,7 +48,7 @@ public class EntityImage extends EntityPosition
 		{
 			image = Engine.m_Resource.loadTexture("res/sprites/tile/grass_1_50.tga");
 		}
-		image.draw(x, y, scale, color);
+		image.draw(pos.x, pos.y, scale, color);
 	}
 	
 	void SetColor(float R, float G, float B)
