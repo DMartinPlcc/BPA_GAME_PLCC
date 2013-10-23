@@ -27,17 +27,17 @@ ENGINE:
 * Create a GUI interface for the main menu, game options, player inventory, hud, and other features.
 * Create procedurally generated world algorithm similar to terraria. (Hills, Caves, Dungeons, enemy encounters, biome-esq)
 
-* Create a way for the world to be continuous in one direction only; no limits.
+* Create a way for the world to be continuous direction; no limits.
 	- The player can only move to the right, up, and down. 
-	- The player can move to the left, so long as he/she does not go past the camera view.
-	- WorldChunks no longer visible behind the player are destroyed.
+	- The player can move to the left.
+	- WorldChunks no longer visible behind the player are removed.
 	- When the player's position reaches the maximum number supported by the float data type, move them and the world back to the beginning.
 	- The above should be somewhat seamless if done properly. 
 	- World savegame data will consist of roughly 10-15 WorldChunks, rather than an entire world.
 	
 	- There will be a hub consisting of 10 chunks that serves as the player's personal home. 
 		- Players can sell items, shop, and store things. The player may teleport home once every minute (if not recently damaged). 
-		- ...Then telport back to their previous location in the game world.
+		- ...Then teleport back to their previous location in the game world.
 	
 PHYSICS:
 * Handle basic collisions of entity types based on an enumeration type. (World, Player, Projectile, ALL, NONE) (Allow to mix and match flags)
