@@ -108,7 +108,7 @@ public class Engine extends BasicGame
 			Game.setTargetFrameRate(100);
 			//Game.setVSync(true);
 			Game.start();
-
+			
 		}
 		catch (SlickException ex)
 		{
