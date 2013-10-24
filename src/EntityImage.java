@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 //import org.newdawn.slick.ImageBuffer;
 
 
-public class EntityImage extends EntityPosition
+public class EntityImage extends EntityPhysics
 {
 	private static final long serialVersionUID = 1L;
 

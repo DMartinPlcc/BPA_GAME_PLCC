@@ -38,6 +38,13 @@ public class EntityPhysics extends EntityPosition
 	enum collisionRules {NONE,PLAYER,GEOMETRY,ALL};
 	private static final long serialVersionUID = 1L;
 	
+	EntityPhysics()
+	{
+		super();
+		rect = new Rectangle(1,1,1,1);
+		physProperties = new PhysicalProperties(0);
+		velocity = new Vector2f(0,0);
+	}
 	
 	EntityPhysics(EntityPosition vis)
 	{

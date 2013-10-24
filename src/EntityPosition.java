@@ -11,6 +11,13 @@ public class EntityPosition extends EntityBase
 	float scale;
 	float width,height;
 	
+	EntityPosition()
+	{
+		setPos(0,0,0);
+		width = 0;
+		height = 0;
+	}
+	
 	void setPos(float X, float Y)
 	{
 		
