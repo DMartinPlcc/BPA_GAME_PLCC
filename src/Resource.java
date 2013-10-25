@@ -35,7 +35,12 @@ public class Resource
 	Vector<SoundPair> soundList = new Vector<SoundPair>();
 	Vector<MusicPair> musicList = new Vector<MusicPair>();
 
-
+	
+	
+	void playMusic(String Path)
+	{
+			loadMusic(Path).play();
+	}
 
 	
 	// Sound effect system
@@ -90,7 +95,7 @@ public class Resource
 			TP.filePath = Path;
 			try {
 				TP.music = new Music(Path);
-			} catch (SlickException e) {
+			} catch (SlickException e) {System.out.println("Failed to load music successfully");
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
