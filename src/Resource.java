@@ -4,6 +4,7 @@
 import java.io.IOException;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 //import org.newdawn.slick.opengl.Texture;
@@ -24,9 +25,15 @@ public class Resource
 		String  filePath;
 		Sound sound;
 	}
+	class MusicPair
+	{
+		String filePath;
+		Music music;
+	}
 
 	Vector<TexturePair> textureList = new Vector<TexturePair>();
 	Vector<SoundPair> soundList = new Vector<SoundPair>();
+	Vector<MusicPair> musicList = new Vector<MusicPair>();
 
 
 
@@ -63,6 +70,37 @@ public class Resource
 
 	}
 	
+	//Music system
+	Music loadMusic(String Path) 
+	{
+		
+		for(int i = 0;i < musicList.size();i++)
+		{
+			MusicPair TP = musicList.get(i);
+			if (TP.filePath == Path)
+			{
+				//System.out.println("Returned music successfully: "+TP.m_Texture.getTextureID());
+				return TP.music;
+			}
+		}
+		
+
+			
+		MusicPair TP = new MusicPair();
+			TP.filePath = Path;
+			try {
+				TP.music = new Music(Path);
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			musicList.add(TP);
+			System.out.println("Loaded music successfully: "+TP.filePath);
+			return TP.music;
+			
+
+
+	}
 	
 
 
