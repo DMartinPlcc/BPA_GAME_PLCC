@@ -26,6 +26,7 @@ public class Engine extends BasicGame
 	World worldInstance;
 	public static final Resource m_Resource = new Resource();
 	
+	
 
 	public Engine(String gamename)
 	{
@@ -36,7 +37,7 @@ public class Engine extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		gc.getGraphics().setBackground(new Color(50,100,255));
-		
+	
 		worldInstance = new World();
 
 		
@@ -96,7 +97,6 @@ public class Engine extends BasicGame
 		//WInstance.Draw();
 		worldInstance.update(gc);
 		worldInstance.draw(g);
-
 	}
 
 	public static void main(String[] args)
