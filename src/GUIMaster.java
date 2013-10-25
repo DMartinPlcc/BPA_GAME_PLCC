@@ -1,21 +1,38 @@
+import java.util.Vector;
+
 //created by: Chubbell, october, 23rd, 2013
 //to create a basic set up for a menu object
 /* needs:
- * vector of GUIInstances
- * Add/Remove instances
  * swap between instances
- * getList of active instances
- * Dispose of unused instances
- * updating instances
  */
 public class GUIMaster {
 
-/*	public void createVector()
+
+	Vector<GUIInstance> instanceList = new Vector<GUIInstance>();
+	GUIInstance currentInstance = null;
+	
+	public GUIInstance getNewInstance()
 	{
-		Vector<GUIInstance> instanceList = new Vector<GUIInstance>5;
-			instanceList.add(instanceVariable);
+		GUIInstance newInstance = new GUIInstance(this);
+		instanceList.add(newInstance);
 		
+		return newInstance;	
 	}
 	
-*/	
+	public void destroyInstance(GUIInstance destroyableInstance)
+	{
+		instanceList.removeElement(destroyableInstance);
+	}
+	
+	public void update()
+	{
+		for(GUIInstance in: instanceList)
+		{
+			in.update();
+		}
+	}
+	private void getInstance(GUIInstance instance)
+	{
+				currentInstance = instance;
+	}
 }

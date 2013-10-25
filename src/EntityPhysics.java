@@ -41,6 +41,7 @@ public class EntityPhysics extends EntityPosition
 	EntityPhysics()
 	{
 		super();
+		
 		rect = new Rectangle(1,1,1,1);
 		physProperties = new PhysicalProperties(0);
 		velocity = new Vector2f(0,0);
