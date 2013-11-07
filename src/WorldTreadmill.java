@@ -1,6 +1,10 @@
 // Daniel Martin Oct 20, 2013
 // Purpose: To load and unload WorldInstances on the fly for rendering and interactivity.
 
+
+import java.util.Vector;
+
+import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Graphics;
 
 
@@ -31,6 +35,20 @@ public class WorldTreadmill implements java.io.Serializable
 	}
 
 	
+	WorldBlock[] GetBlocksInRadius(Vector2f Pos, float Radius)
+	{
+		Vector <WorldBlock> blockList = new Vector <WorldBlock>();
+		
+		
+		
+		
+		
+		
+		
+		
+		return blockList.toArray(new WorldBlock[blockList.size()]);
+	}
+			
 	class PushInstanceThread extends Thread 
 	{
 		int x;
