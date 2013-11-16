@@ -2,6 +2,8 @@
 // Daniel Martin Oct/6/2013 // Edited: Clayton Hubbell Oct. 16th, 2013
 // Purpose: Placeholder for entity, world, and other asset data representing the game world.
 
+import java.util.Vector;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -15,6 +17,8 @@ public class World implements java.io.Serializable
 	String worldName;
 	MetaSave metaData;
 	WorldTreadmill treadmill;
+	
+
 
 	long lastUpdate;
 	long nextUpdate;
@@ -23,6 +27,7 @@ public class World implements java.io.Serializable
 	{
 		camera = new Camera(0, 0);
 		treadmill = new WorldTreadmill();
+		
 		//treadmill.instanceList[0][0].save("TestWorld", 0);
 	}
 

@@ -4,8 +4,25 @@
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.geom.Rectangle;
 
+/**
+ * The basis class for entities that must collide with, and react to other worldly entities.
+ * @author Bruce
+ * @author Jacob
+ * @since  10/14/13
+ * @see EntityPosition
+ * @category Entity
+ */
 public class EntityPhysics extends EntityPosition
 {
+	/** 
+	 * Generic information on how the entity should react to stimuli.
+	 * @param bounce Entity bounce scale.
+	 * @param mass Entity "weight", dependent upon gravity.
+	 * @param friction Entity friction, resistance to movement.
+	 * @author Bruce
+	 * @author Jacob
+	 *
+	 */
 	public class PhysicalProperties
 	{
 		float bounce,mass,friction;

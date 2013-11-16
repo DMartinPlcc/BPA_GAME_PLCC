@@ -23,7 +23,7 @@ import org.newdawn.slick.SlickException;
 
 public class Engine extends BasicGame
 {
-	World worldInstance;
+	World gameWorld;
 	public static final Resource m_Resource = new Resource();
 	
 	
@@ -38,7 +38,7 @@ public class Engine extends BasicGame
 	{
 		gc.getGraphics().setBackground(new Color(50,100,255));
 	
-		worldInstance = new World();
+		gameWorld = new World();
 
 		
 		//Instance3 = new WorldInstance(0,1); // Bottom Left
@@ -95,8 +95,8 @@ public class Engine extends BasicGame
 
 		
 		//WInstance.Draw();
-		worldInstance.update(gc);
-		worldInstance.draw(g);
+		gameWorld.update(gc);
+		gameWorld.draw(g);
 	}
 
 	public static void main(String[] args)
