@@ -93,6 +93,17 @@ public class WorldChunk extends EntityBase
 		}	
 	}
 	
+	void shiftPos(float X, float Y)
+	{
+		for (int Col = 0; Col < COLUMNS; Col++)
+		{
+			for (int Row = 0; Row < ROWS; Row++)
+			{
+				Blocks[Row][Col].shiftPos(X,Y);
+			}
+		}
+	}
+	
 	void draw(float playerX, float playerY)
 	{
 		
@@ -154,13 +165,6 @@ public class WorldChunk extends EntityBase
 			}	
 		}
 		
-	
-		
-		
-		
-		
-		
-		
 		for (int Row = 0; Row < ROWS; Row++)
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
@@ -171,4 +175,7 @@ public class WorldChunk extends EntityBase
 		
 
 	}
+
+
+
 }

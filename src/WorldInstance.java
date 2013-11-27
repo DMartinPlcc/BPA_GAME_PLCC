@@ -32,7 +32,9 @@ public class WorldInstance implements java.io.Serializable
 	int precedingChildrenX;
 	int precedingChildrenY;
 	
-
+	//Start Position;
+	float x;
+	float y;
 	
 	// Name or Instance file. Ex WorldName_0_0.txt
 	// Name_X_Y
@@ -51,6 +53,9 @@ public class WorldInstance implements java.io.Serializable
 		
 		precedingChildrenX = Instance.precedingChildrenX;
 		precedingChildrenY = Instance.precedingChildrenY;
+		
+		x = Instance.x;
+		y = Instance.y;
 	}
 	WorldInstance(int PrecedingInstancesX,int PrecedingInstancesY)
 	{
@@ -85,6 +90,9 @@ public class WorldInstance implements java.io.Serializable
 				
 		precedingChildrenX = (int) (precedingX * COLUMNS); 
 		precedingChildrenY = (int) (precedingY * ROWS);
+		
+		x = WIDTH  * precedingX;
+		y = HEIGHT * precedingY;
 	}
 	
 	void recomputePosition(int PrecedingInstancesX,int PrecedingInstancesY)

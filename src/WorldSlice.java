@@ -75,6 +75,17 @@ public class WorldSlice implements java.io.Serializable
 	
 	}
 		
+	void ShiftPos(float X, float Y)
+	{
+		for (int Col = 0; Col < COLUMNS; Col++)
+		{
+			
+			for (int Row = 0; Row < ROWS; Row++)
+			{
+				worldChunks[Row][Col].shiftPos(X,Y);
+			}
+		}
+	}
 	void recomputePosition(int PrecedingSlicesX, int PrecedingSlicesY)
 	{
 		computeOffsets(PrecedingSlicesX,PrecedingSlicesY);

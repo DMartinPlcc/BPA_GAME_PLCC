@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
 
 
 public class WorldTreadmill implements java.io.Serializable
@@ -39,6 +41,21 @@ public class WorldTreadmill implements java.io.Serializable
 	{
 		Vector <WorldBlock> blockList = new Vector <WorldBlock>();
 		
+		
+		
+		for (int Col = 0; Col < COLUMNS; ++Col)
+		{
+			for (int Row = 0; Row < ROWS; ++Row)
+			{
+				WorldInstance tempInst = instanceList[Row][Col];
+				Rectangle InstanceRect = new Rectangle(tempInst.x,tempInst.y,tempInst.WIDTH,tempInst.HEIGHT);
+				Circle findPoint = new Circle(Pos.x, Pos.y, Radius);
+				if (InstanceRect.intersects(findPoint))
+				{
+					
+				}
+			}
+		}
 		
 		
 		

@@ -49,6 +49,12 @@ public class EntityPosition extends EntityBase
 		height *= scale;
 	}
 	
+	void shiftPos(float X, float Y)
+	{
+		pos.x += X;
+		pos.y += Y;
+	}
+	
 	boolean inRadius(Vector2f Pos, float Radius)
 	{
 		return ( (Math.abs(Pos.x - this.pos.x) <= Radius ) && (Math.abs(Pos.y - this.pos.y) <= Radius ));
