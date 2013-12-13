@@ -1,38 +1,49 @@
-import java.util.Vector;
+import java.util.Stack;
 
 //created by: Chubbell, october, 23rd, 2013
 //to create a basic set up for a menu object
 /* needs:
  * swap between instances
  */
-public class GUIMaster {
-
-
-	Vector<GUIInstance> instanceList = new Vector<GUIInstance>();
-	GUIInstance currentInstance = null;
+public class GUIMaster extends GUIElement
+{	
+	Stack <GUIInstance> instanceStack = new Stack<GUIInstance>();
 	
-	public GUIInstance getNewInstance()
+	GUIMaster() 
 	{
-		GUIInstance newInstance = new GUIInstance(this);
-		instanceList.add(newInstance);
-		
-		return newInstance;	
+		super(null);
+	}
+
+
+	public void addGUIInstance(GUIInstance newInstance)
+	{
+		instanceStack.push(newInstance);
 	}
 	
 	public void destroyInstance(GUIInstance destroyableInstance)
 	{
-		instanceList.removeElement(destroyableInstance);
+		destroyableInstance.Cleanup();
+		instanceStack.removeElement(destroyableInstance);
 	}
+	
+	public GUIInstance popInstance()
+	{
+		instanceStack.peek().Cleanup();
+		return instanceStack.pop();
+	}
+	
+
+	
+	private GUIInstance peekInstance()
+	{
+		return instanceStack.peek();
+	}	
 	
 	public void update()
 	{
-		for(GUIInstance in: instanceList)
+		for(GUIInstance in: instanceStack)
 		{
 			in.update();
 		}
-	}
-	private void getInstance(GUIInstance instance)
-	{
-				currentInstance = instance;
 	}
 }

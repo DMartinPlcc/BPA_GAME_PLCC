@@ -26,6 +26,7 @@ public class Engine extends BasicGame
 	World gameWorld;
 	public static final Resource m_Resource = new Resource();
 	
+	public static GUIMaster GUIM;
 	
 
 	public Engine(String gamename)
@@ -39,7 +40,7 @@ public class Engine extends BasicGame
 		gc.getGraphics().setBackground(new Color(50,100,255));
 	
 		gameWorld = new World();
-
+		GUIM = new GUIMaster();
 		
 		//Instance3 = new WorldInstance(0,1); // Bottom Left
 		//Instance4 = new WorldInstance(1,1); // Bottom Right
@@ -82,6 +83,7 @@ public class Engine extends BasicGame
 	      WInstance = SNew;
 	      */
 		
+		GUIM.addGUIInstance(new TestGUI(GUIM));
 	}
 
 	@Override
@@ -97,6 +99,7 @@ public class Engine extends BasicGame
 		//WInstance.Draw();
 		gameWorld.update(gc);
 		gameWorld.draw(g);
+		GUIM.update();
 	}
 
 	public static void main(String[] args)

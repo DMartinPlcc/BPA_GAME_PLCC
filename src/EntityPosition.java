@@ -74,7 +74,7 @@ public class EntityPosition extends EntityBase
 	/*** Return The (absolute) distance from another entity to this entity.*/
 	float distance(EntityPosition Entity)
 	{
-		return distance(Entity);
+		return distance(Entity.pos);
 	}
 	
 }

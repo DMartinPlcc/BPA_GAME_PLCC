@@ -7,5 +7,12 @@ public class GUIButton extends GUIElement
 	{
 		super(parentElement);
 		isPressed = false;
+		this.setScale(10);
+	}
+	
+	void update()
+	{
+		
+		draw();
 	}
 }
