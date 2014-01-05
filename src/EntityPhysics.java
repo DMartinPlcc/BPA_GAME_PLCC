@@ -12,7 +12,7 @@ import org.newdawn.slick.geom.Rectangle;
  * @see EntityPosition
  * @category Entity
  */
-public class EntityPhysics extends EntityPosition
+public class EntityPhysics extends EntityBase
 {
 	/** 
 	 * Generic information on how the entity should react to stimuli.
@@ -61,7 +61,7 @@ public class EntityPhysics extends EntityPosition
 		velocity = new Vector2f(0,0);
 	}
 	
-	EntityPhysics(EntityPosition vis)
+	EntityPhysics(EntityBase vis)
 	{
 		physProperties = new PhysicalProperties();
 	}

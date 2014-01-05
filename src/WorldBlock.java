@@ -27,4 +27,10 @@ public class WorldBlock extends EntityImage
 		height = HEIGHT;
 	}
 
+	
+	public WorldBlock(float X, float Y)
+	{
+		this(X,Y,1);
+	}
+
 }

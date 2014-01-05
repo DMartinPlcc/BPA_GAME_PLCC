@@ -5,7 +5,7 @@ import java.util.Vector;
  * 
  *  handle  events
  */
-public class GUIElement extends EntityImage
+public class GUIElement
 {
 	GUIElement parent = null;
 	GUIElement GUIActionParent = null;

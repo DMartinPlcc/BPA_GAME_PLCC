@@ -1,3 +1,7 @@
+import org.lwjgl.util.vector.Vector2f;
+
+
+
 // Daniel Martin Oct/6/2013
 // Purpose: Contains a set of WorldChunks representing a vertical slice of the game world, one column wide.
 
@@ -128,7 +132,7 @@ public class WorldSlice implements java.io.Serializable
 		}	
 	}
 	
-	void draw(float playerX, float playerY)
+	void draw()
 	{		
 		
 
@@ -142,9 +146,11 @@ public class WorldSlice implements java.io.Serializable
 		float CenterY = posY_Start+(HEIGHT/2);
 		
 		
-
+		Vector2f fPos = Engine.gameWorld.player.playerCamera.getParentFrustrum();
+		float playerX = fPos.x;
+		float playerY = fPos.y;
 		// Player past slice center
-		if (playerX > CenterX)
+		if (playerY  > CenterX)
 		{
 			//System.out.println("Past Center");
 		

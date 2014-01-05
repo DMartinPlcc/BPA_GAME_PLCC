@@ -14,41 +14,25 @@ public class EntityList
 	}
 	
 
-	public Vector<EntityBase> getEntities(Vector2f Pos, float Radius, EntityBase.EntityType FilterType)
+	public Vector<EntityBase> getEntities(Vector2f Pos, float Radius)
 	{
 		//Return a vector of all entities that are within a radius of a position, and match a generic identifier.
-		// Some entities don't have a position, they are ignored when searching for radius.
-		// Logical filters ignore radius and position. You will receive a list of ALL LOGICAL entities on the map if you specify the LOGCIAL filter.
-		// Specifying a Radius of -1 will ignore radius, and search all available entities matching the specified filter type.
 		
 		Vector<EntityBase> entList = new Vector<EntityBase>();
 		for(EntityBase E : gameEntities)
-		{
-			if (E.entityType.equals(FilterType) || FilterType.equals(EntityBase.EntityType.ALL))
+		{	
+			if (E instanceof EntityBase)
 			{
-				if (Radius == -1 || FilterType.equals(EntityBase.EntityType.LOGICAL))
+				EntityBase RadiusTest = (EntityBase) E;
+				if (RadiusTest.inRadius(Pos, Radius))
 				{
-					entList.add(E);
-					continue;
+					entList.add(RadiusTest);
 				}
-				
-				if (E instanceof EntityPosition)
-				{
-					EntityPosition RadiusTest = (EntityPosition) E;
-					if (RadiusTest.inRadius(Pos, Radius))
-					{
-						entList.add(RadiusTest);
-					}
-				}
-
 			}
+
 		}
+		
 		return entList;
-	}
-	
-	public Vector<EntityBase> getEntities(EntityBase.EntityType Type)
-	{
-		return getEntities(new Vector2f(0,0), -1, Type);
 	}
 	
 }

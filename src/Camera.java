@@ -1,44 +1,45 @@
 // Daniel Martin Oct 13, 2013
 // Purpose: To aid in the camera's movement, independent of the player.
 
+import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-public class Camera extends EntityPosition
-{
-	private static final long serialVersionUID = 1L;
+public class Camera 
+{	
+	EntityBase parentEntity = null;
 	
-	Camera(float X, float Y)
+	
+
+	Camera(EntityBase ParentEntity)
 	{
-		setPos(X,Y);
+		parentEntity = ParentEntity;
 	}
-	void draw(Graphics g)
+
+	Vector2f getParentFrustrum()
 	{
-		g.translate(-pos.x,-pos.y);
-	
-	}
-	
-	void update(GameContainer gc)
-	{
-		int MoveSpeed = 10;
 		
-		if (gc.getInput().isKeyDown(Input.KEY_D))
+		
+		if (parentEntity != null)
 		{
-			pos.x += MoveSpeed;
+			Vector2f fPos = new Vector2f();
+			fPos.x = parentEntity.getPos().x-(Engine.gameContainer.getWidth()/2);
+			fPos.y = parentEntity.getPos().y-(Engine.gameContainer.getHeight()/2);
+			return fPos;
 		}
-		else if (gc.getInput().isKeyDown(Input.KEY_A))
+		else
 		{
-			pos.x -= MoveSpeed;
+			System.out.println("Invalid parent for getParentFrustrum()!");
+			return new Vector2f(0,0);
 		}
-		if (gc.getInput().isKeyDown(Input.KEY_S))
-		{
-			pos.y += MoveSpeed;
-		}
-		else if (gc.getInput().isKeyDown(Input.KEY_W))
-		{
-			pos.y -= MoveSpeed;
-		}
+	}
+	
+	void Translate()
+	{
+		Vector2f newPos = getParentFrustrum();
+		Engine.gameContainer.getGraphics().translate(-newPos.x,-newPos.y);
 		
 	}
+	
 }

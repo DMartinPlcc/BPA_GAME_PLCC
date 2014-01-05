@@ -4,7 +4,7 @@
 
 //NOTE: This only works with an image that has a pixel size of 50x50.
 // ALL *BLOCK* Assets will be a power of, or equally divisible by TEN!!!
-public class WorldChunk extends EntityBase
+public class WorldChunk extends Saveable
 {
 	private static final long serialVersionUID = 1L;
 	static final int ROWS    = 10;
@@ -99,7 +99,7 @@ public class WorldChunk extends EntityBase
 		{
 			for (int Row = 0; Row < ROWS; Row++)
 			{
-				Blocks[Row][Col].shiftPos(X,Y);
+				Blocks[Row][Col].addPos(X,Y);
 			}
 		}
 	}

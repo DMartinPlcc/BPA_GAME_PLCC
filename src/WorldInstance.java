@@ -133,7 +133,7 @@ public class WorldInstance implements java.io.Serializable
 		}	
 	}
 		
-	void draw(float playerX,float playerY)
+	void draw()
 	{
 
 		/*
@@ -201,7 +201,7 @@ public class WorldInstance implements java.io.Serializable
 		{
 			for (int Col = 0; Col < COLUMNS; Col++)
 			{				
-				slices[Row][Col].draw(playerX,playerY);
+				slices[Row][Col].draw();
 			}
 		}
 	}

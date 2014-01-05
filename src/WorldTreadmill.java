@@ -237,13 +237,13 @@ public class WorldTreadmill implements java.io.Serializable
 		}
 	}
 
-	void draw(Graphics g, float X, float Y) 
+	void draw() 
 	{
 		for (int row = 0; row < ROWS; row++) 
 		{
 			for (int column = 0; column < COLUMNS; column++) 
 			{
-				instanceList[row][column].draw(X, Y);
+				instanceList[row][column].draw();
 			}
 		}
 	}

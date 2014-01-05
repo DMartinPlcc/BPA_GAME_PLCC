@@ -1,6 +1,11 @@
 package Deprecated;
 import java.util.Vector;
 
+/**
+ * @deprecated
+ * @author Danny
+ *
+ */
 public class Saveable 
 {
 	static final char Delimiter_Class = '@';

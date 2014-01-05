@@ -1,7 +1,7 @@
 
 public class GUIAction 
 {
-	enum GUIActions {RELEASE,PRESS,ROLLOVER,CLICK,SPECIAL};
+	enum GUIActions {RELEASE,PRESS,ROLLOVER,CLICK,KEYPRESS,SPECIAL};
 	private GUIElement sender;
 	private GUIActions action;
 	private String actionCommand;

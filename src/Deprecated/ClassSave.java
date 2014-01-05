@@ -2,7 +2,11 @@ package Deprecated;
 
 import java.util.Vector;
 
-
+/**
+ * @deprecated
+ * @author Danny
+ *
+ */
 final public class ClassSave 
 {
 

@@ -1,5 +1,10 @@
 package Deprecated;
 
+/**
+ * @deprecated
+ * @author Danny
+ *
+ */
 public class SaveEntityTest extends Saveable 
 {
 	int X;
