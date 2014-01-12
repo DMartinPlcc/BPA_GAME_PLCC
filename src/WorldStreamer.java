@@ -1,6 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -25,7 +26,7 @@ public class WorldStreamer
 	public WorldStreamer()
 	{
 		// The first call adds a chunk at (0,0) regardless of if it's added to the left or right.
-		AddVerticalChunk(true); 
+		addVerticalChunk(true); 
 	}
 	
 	int getOffset(boolean isPositive)
@@ -33,27 +34,26 @@ public class WorldStreamer
 		if (worldDeque.size() > 0)
 		{
 			
-			System.out.println("PeekFirst: "+worldDeque.peekFirst().relativeOffsetX+" | PeekLast: "+worldDeque.peekLast().relativeOffsetX+"");
+			//System.out.println("PeekFirst: "+worldDeque.peekFirst().relativeOffsetX+" | PeekLast: "+worldDeque.peekLast().relativeOffsetX+"");
 			if (isPositive == true)
 			{
-				System.out.println("Positive");
+				//System.out.println("Positive");
 				return worldDeque.peekFirst().relativeOffsetX+1;
 			}
 			if (!isPositive)
 			{
-				System.out.println("Negitive");
+				//System.out.println("Negitive");
 				return worldDeque.peekLast().relativeOffsetX-1;
 			}
 			
 		}
-		System.out.println("WorldStreamer: getOffset() - returned 0.");
+		//System.out.println("WorldStreamer: getOffset() - returned 0.");
 		return 0;
 	}
-	
-	
-	void AddVerticalChunk(boolean addRight)
+		
+	void addVerticalChunk(boolean isRight)
 	{
-		if(addRight == true)
+		if(isRight == true)
 		{
 			addTotalRight();
 			worldDeque.addFirst(new VerticalChunk(getOffset(true)));
@@ -65,10 +65,23 @@ public class WorldStreamer
 		}
 	}
 
+	VerticalChunk popVerticalChunk(boolean isRight)
+	{
+		if(isRight == true)
+		{
+			return worldDeque.pollFirst();
+		}
+		else
+		{
+			return worldDeque.pollLast();
+		}
+	}
 	
 	void addTotalLeft()
 	{
 		totalLeft++;
+		
+		/*
 		if (totalLeft >= 100)
 		{
 			// Shift the entire world WORLDSAVE units to the right
@@ -81,9 +94,9 @@ public class WorldStreamer
 			totalLeft = 0;
 			instanceLeft.save();
 			instanceLeft = instanceRight;
-			instanceLeft = new WorldSave(instanceLeft._WorldName,instanceLeft._XOffset);
+			instanceLeft = new WorldSave(instanceLeft.worldName,instanceLeft.xOffset);
 		}
-		
+		*/
 	}
 	
 	void addTotalRight()
@@ -95,7 +108,29 @@ public class WorldStreamer
 	{
 		for(VerticalChunk vChunk : worldDeque)
 		{
-			vChunk.draw();
+			// Using the player's camera's frustrum (viewing volume) and see if it can "see" this VerticalChunk
+			if (vChunk.getBoundingBox().intersects(Engine.gameWorld.player.camera.getParentFrustrum()))
+			{
+				vChunk.draw();
+			}
 		}
+	}
+	
+	Vector<EntityBase> getBlocksInRadius(Vector2f Pos, float Radius)
+	{
+		Vector<EntityBase> Blocks = new Vector<EntityBase>();
+
+		
+
+		
+		for (VerticalChunk VC : worldDeque)
+		{
+			//System.out.println("Added VerticalChunk!");
+			Blocks.addAll(VC.getBlocksInRadius(Pos, Radius));
+		}
+		
+		return Blocks;
+		
+		
 	}
 }

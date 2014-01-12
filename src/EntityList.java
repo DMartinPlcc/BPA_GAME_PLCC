@@ -1,5 +1,7 @@
 import java.util.Vector;
-import org.lwjgl.util.vector.Vector2f;
+
+import org.newdawn.slick.geom.Vector2f;
+
 
 
 // Programmer: Daniel Martin 11/15/2013

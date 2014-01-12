@@ -6,58 +6,49 @@ import java.util.Vector;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL31;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.ShapeRenderer;
+import org.newdawn.slick.geom.Vector2f;
 
 public class World implements java.io.Serializable 
 {
 	private static final long serialVersionUID = 1L;
-	
-
 	Camera camera;
 	String worldName;
-	
-	WorldTreadmill treadmill;
-	
-	
+
 	EntityPlayer player;
+	Vector<EntityBase> entityList = null;
 	
 	long nextUpdate = 0;
 
-	//WorldPartition<WorldBlock> 					Chunk1_Partition = new WorldPartition<WorldBlock>();	
-	//WorldPartition<WorldPartition<WorldBlock>> 	Chunk2_Partition = new WorldPartition<WorldPartition<WorldBlock>>();
+	WorldStreamer worldStream = new WorldStreamer();
 	
-	WorldStreamer test = new WorldStreamer();
+	WorldBlock physTestBlock = new WorldBlock(0,40);
+	
+	WorldBlock attachmentTest = new WorldBlock(0,0);
 	
 	World() 
 	{
 		player = new EntityPlayer();
-		player.setPos(0, 0);
+		player.setPos(0, 50);
 		
-		//camera = new Camera(0, 0);
-		treadmill = new WorldTreadmill();
+		for (int i = 0; i < 2; i++)
+		{
+			worldStream.addVerticalChunk(false);
+			worldStream.addVerticalChunk(true);
+		}
 		
-		//treadmill.instanceList[0][0].save("TestWorld", 0);
-		test.AddVerticalChunk(false);
-		test.AddVerticalChunk(true);
+		//attachmentTest.setPos(player.getMidpointTop());
+		attachmentTest.attachmentOffset = player.getMidpointTop().negate();
+		
+		player.addAttachment(attachmentTest);
 		
 		
-		/*
-		Chunk1_Partition.setPos(0,0);
-		Chunk1_Partition.setDimensions(10,10);
-		Chunk1_Partition.setChildDimensions(50,50);
-		Chunk1_Partition.setParent(Chunk2_Partition);
-		Chunk1_Partition.setChild(null);
-		
-		Chunk2_Partition.setPos(0,0);
-		Chunk2_Partition.setParent(null);
-		Chunk2_Partition.setChild(Chunk1_Partition);
-		Chunk2_Partition.setDimensions(10,10);
-		Chunk2_Partition.inferChildDimensions();
-		Chunk2_Partition.populate();
-		*/
 	}
 
 	
@@ -65,57 +56,146 @@ public class World implements java.io.Serializable
 	{
 		
 		//GL11.glTranslatef(70, 100, 0);
-			if (Engine.isKeyPressed(Input.KEY_T)) 
-			{
-				System.out.println("Recompute [0][0] Plus 1");
-				treadmill.instanceList[0][0].recomputePosition(treadmill.instanceList[0][0].precedingX+1, treadmill.instanceList[0][0].precedingY);	
-			}
-			if (Engine.isKeyPressed(Input.KEY_E)) 
-			{
-				System.out.println("Added Right!");
-				treadmill.pushInstance(1,0);		
-			}
-			if (Engine.isKeyPressed(Input.KEY_Q)) 
-			{
-				System.out.println("Added Left!");
-				treadmill.pushInstance(-1,0);
-			}
-
-			if (Engine.isKeyPressed(Input.KEY_X)) 
-			{
-				System.out.println("Added Down!");
-				treadmill.pushInstance(0,-1);
-			}
-			if (Engine.isKeyPressed(Input.KEY_C)) 
-			{
-				System.out.println("Added Up!");
-				treadmill.pushInstance(0,1);
-			}
-			
-			
-			
-			
-		//camera.update(Engine.gameContainer);
-			
 		
+		//Physics Testing
+		//physTestBlock.handleCollision(player);
+		player.handleCollision(physTestBlock);
+		
+		if(Engine.isKeyPressed(Input.KEY_F1))
+		{
+			System.out.println("VChunk Left");
+			worldStream.addVerticalChunk(false);
+		}
+		if(Engine.isKeyPressed(Input.KEY_F2))
+		{
+			System.out.println("VChunk Right");
+			worldStream.addVerticalChunk(true);
+		}
+		
+		if(Engine.isKeyPressed(Input.KEY_F5))
+		{
+			System.out.println("Radius grab, Grow!");
+			
+			for(EntityBase EBase : getEntityList(player.getPos(),500))
+			{
+				EntityImage imageBase = (EntityImage) EBase;
+				if(imageBase != null)
+				{
+					imageBase.setScale(2);
+				}
+			}
+		}
+		if(Engine.isKeyPressed(Input.KEY_F6))
+		{
+			System.out.println("Radius grab, Shrink!");
+			
+			for(EntityBase EBase : getEntityList(player.getPos(),500))
+			{
+				EntityImage imageBase = (EntityImage) EBase;
+				if(imageBase != null)
+				{
+					imageBase.setScale(0.5f);
+				}
+			}
+		}
+		if(Engine.isKeyPressed(Input.KEY_F7))
+		{
+			System.out.println("Radius grab, Default!");
+			
+			for(EntityBase EBase : getEntityList(player.getPos(),500))
+			{
+				EntityImage imageBase = (EntityImage) EBase;
+				if(imageBase != null)
+				{
+					imageBase.setScale(1);
+				}
+			}
+		}
+		
+		if(Engine.isKeyPressed(Input.KEY_F8))
+		{
+			System.out.println("Radius grab, Invisible!");
+			
+			for(EntityBase EBase : getEntityList(player.getPos(),500))
+			{
+				EntityImage imageBase = (EntityImage) EBase;
+				if(imageBase != null)
+				{
+					imageBase.visable = false;
+				}
+			}
+		}
+		
+		if(Engine.isKeyPressed(Input.KEY_F9))
+		{
+			System.out.println("Radius grab, Visible!");
+			
+			for(EntityBase EBase : getEntityList(player.getPos(),500))
+			{
+				EntityImage imageBase = (EntityImage) EBase;
+				if(imageBase != null)
+				{
+					imageBase.visable = true;
+				}
+			}
+		}
+		
+
+		
+		if(Engine.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		{
+			System.out.println("("+Engine.getInput().getMouseX()+","+Engine.getInput().getMouseY()+")");
+			
+		}
+		
+		for(EntityBase EBase : getEntityList(player.getPos(),player.getWidth()))
+		{
+			EntityPhysics EPhys = (EntityPhysics) EBase;
+			if (EPhys != null)
+			{
+				player.handleCollision(EPhys);
+			}
+		}
 
 	}
 
 	void draw(Graphics g) 
 	{		
 		//GL11.glScalef(1, -1, 1);
-		//GL11.glOrtho(0, Engine.gameContainer.getWidth(), 0, Engine.gameContainer.getHeight(), -2, 2);
-		//Engine.gameContainer.getGraphics().translate(0,0);
+		
+		Engine.flipYAxis(true);		
+		player.camera.Translate();
 		
 		
+		//Rectangle bBox = player.camera.getParentFrustrum();
+		//bBox.grow(-100, -100);
+		//Engine.gameContainer.getGraphics().fill(bBox);
 		
-		player.playerCamera.Translate();
-		//treadmill.draw();
-		test.draw();
+		
+		worldStream.draw();
+		physTestBlock.draw();
 		player.update();
-		//Chunk2_Partition.draw();
+		player.simulate();
+		attachmentTest.draw();
+		
+
+		
+		//Engine.gameContainer.getGraphics().fill(player.camera.getParentFrustrum());
+		//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
+		
+
+		
 		
 		
 	}
 
+	
+	Vector<EntityBase> getEntityList(Vector2f Pos, float Radius)
+	{
+		Vector<EntityBase> EntityList = new Vector<EntityBase>();
+		//Let's start off with getting all the possible WorldBlocks.
+		
+		EntityList.addAll(worldStream.getBlocksInRadius(Pos, Radius));
+		return EntityList;
+	}
 }

@@ -14,7 +14,7 @@ public class GUIText extends EntityPhysics{
 	GUIText()
 	{
 		Font f = new Font("Times New Roman", Font.BOLD, 24);
-		textFont = new TrueTypeFont(f, false);		
+		textFont = new TrueTypeFont(f, false);	
 		text = "Not Specified";
 	}
 	
@@ -30,6 +30,7 @@ public class GUIText extends EntityPhysics{
 	
 	public void draw(float x, float y)
 	{
+		
 		textFont.drawString(x, y, text);
 	}
 }

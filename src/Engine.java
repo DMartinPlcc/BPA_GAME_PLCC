@@ -29,7 +29,12 @@ public class Engine extends BasicGame
 	public static GUIMaster GUIM;
 	public static AppGameContainer gameContainer = null; 
 	public static World gameWorld = null;
-
+	
+	EntityPlayer getPlayer()
+	{
+		//Don't hate the player, hate the game.
+		return gameWorld.player;
+	}
 	
 	public Engine(String gamename)
 	{
@@ -63,7 +68,7 @@ public class Engine extends BasicGame
 	{
 		
 		gc.getGraphics().setBackground(new Color(50,100,255));
-	
+		gc.setShowFPS(false);
 		
 		GUIM = new GUIMaster();
 		gameWorld = new World();
@@ -87,8 +92,8 @@ public class Engine extends BasicGame
 		{
 			gameContainer = new AppGameContainer(new Engine("Placeholder"));
 			gameContainer.setDisplayMode(1280, 720, false);			
-			gameContainer.setTargetFrameRate(100);
-			gameContainer.setVSync(true);
+			gameContainer.setTargetFrameRate(60);
+			//gameContainer.setVSync(true);
 			
 			gameContainer.start();
 		}
@@ -98,5 +103,24 @@ public class Engine extends BasicGame
 		}
 	}
 	
+	public static void flipYAxis(boolean Y_UP)
+	{
+		if (Y_UP == true)
+		{
+			// Flip Y-Up
+			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glLoadIdentity();
+			GL11.glOrtho(0, Engine.gameContainer.getWidth(), 0, Engine.gameContainer.getHeight(), -1, 1);
+			
+		}
+		else
+		{
+			//Flip Y-Down
+			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glLoadIdentity();
+			GL11.glOrtho(0, Engine.gameContainer.getWidth(), Engine.gameContainer.getHeight(), 0, -1, 1);
+		}
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+	}
 
 }

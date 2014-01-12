@@ -130,7 +130,7 @@ public class Resource
 			TP.filePath = Path;
 			TP.image = new Image(TextureLoader.getTexture("TGA",ResourceLoader.getResourceAsStream(Path)));
 			textureList.add(TP);
-			System.out.println("Loaded texture successfully: "+TP.filePath);
+			//System.out.println("Loaded texture successfully: "+TP.filePath);
 			return TP.image;
 			
 		} 

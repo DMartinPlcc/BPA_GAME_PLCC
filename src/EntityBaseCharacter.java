@@ -1,4 +1,6 @@
-import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.geom.Vector2f;
+
+
 
 
 public class EntityBaseCharacter extends EntityImage
@@ -6,14 +8,9 @@ public class EntityBaseCharacter extends EntityImage
 
 	EntityBaseCharacter()
 	{
-
+		super("res/sprites/tile/block_1_20.tga");
 	}
 	
-	EntityBaseCharacter(Vector2f Pos, int Health)
-	{
-		setPos(Pos);
-		
-	}
 
 	
 
